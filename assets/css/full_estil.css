@@ -1,0 +1,583 @@
+
+:root{
+    --bg-principal: #EBEBEB;
+    --bg-descuento: #BE3643;
+}
+
+html{
+    width: 100%;
+}
+
+/*Titles*/
+h1{
+    height: 100%;
+}
+
+h3{
+    font-family: Raleway;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    align-self: center;
+}
+
+h4{
+    align-self: baseline;
+    font-family: Raleway;
+    font-size: 40px;
+    font-weight: 400;
+    margin-bottom: 65px;
+    align-self: center;
+}
+
+h5{
+    font-family: Raleway;
+    font-weight: 700;
+    font-size: 30px;
+}
+
+h6{
+    font-family: Cabin;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 20px 0 20px 0;
+}
+
+/*Header*/
+h1 img{
+    max-height: 2.8rem;
+    width: 100%;
+    z-index: 0;
+}
+
+.buscador{
+    width: 100%;
+    max-width: 50rem;
+}
+
+.buscador img {
+    height: 1.2rem;
+    z-index: 1;
+    position: absolute;
+}
+
+.inputBuscador{
+    width: 100%;
+    max-width: 50rem;
+    height:  2.2rem;
+    border-radius: 50px;
+    border: 0px;
+    background-color: #F7F7F7;
+}
+
+.menuSocial{
+    height: fit-content;
+    width: 40px;
+    height: 100%;
+}
+.menuSocial a{
+    color: #2C2C2C;
+    text-decoration: none;
+
+}
+
+.menuSocial p{
+    font-family: Cabin;
+    font-weight: bold;
+    font-size: 11px;
+    text-decoration: none;
+    margin: 0px;    
+}
+
+.menuSocialMovil{
+    display: none;
+}
+
+.menuSocialMovil a{
+    color: #2C2C2C;
+}
+
+.menuSocialMovil p{
+    font-family: Cabin;
+    font-weight: bold;
+    font-size: 11px;   
+}
+
+.carro{
+    min-height: 1.3rem;
+    min-width: 1.2rem;
+}
+
+.cantidad{
+    z-index: 1;
+    position: absolute;
+    border-radius: 100%;
+    background-color: var(--bg-descuento);
+    width: 15px;
+    height: 15px;
+}
+
+.cantidad a{
+    font-family: Cabin;
+    font-size: 12px;
+    color: white;
+    text-decoration: none;
+
+}
+
+.headerNav{
+    width: 100%;
+    border-style: solid;
+    border-width:  0 0 1px 0;
+    border-color: var(--bg-principal);
+    display: flex;
+    justify-content: center;
+}
+
+.nav-item{
+    font-size: 15px;
+    font-family: Cabin;
+}
+
+li a.promo{
+    color: var(--bg-descuento);
+}
+
+/*Footer*/
+.footer1{
+    height: 2.5rem;
+    border: solid;
+    border-width:  0 0 1px 0;
+    border-color: white;
+    background-color: var(--bg-principal);
+}
+
+.footer2{
+    min-height: 8.5rem;
+    border: solid;
+    border-width:  0 0 1px 0;
+    border-color: white;
+    background-color: var(--bg-principal);
+    padding: 20px 0  20px 0 ;
+
+}
+
+.subscription p{
+    font-family: Cabin;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.buscadorFooter{
+    width: 100%;
+    max-width: 35.9rem;
+    border-radius: 0;
+}
+
+.buscadorFooter::placeholder{
+    font-family: Raleway;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.buscadorFooter button{
+    background-color: black;
+    border-radius: 0px;
+    border: none;
+    color: white;
+    font-family: Raleway;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.footer3{
+    min-height: 14.3rem;
+    border: solid;
+    border-width:  0 0 1px 0;
+    border-color: white;
+    background-color: var(--bg-principal);
+}
+
+.accordion{
+    height: fit-content;
+    display: none;
+}
+
+.socialMediaSM{
+    display: none;
+}
+
+.accordion-button{
+    background-color: var(--bg-principal) !important;
+    color: #2C2C2C !important;
+    border: 0px;
+    border-style: none;
+    box-shadow: none;
+    font-family: Cabin;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 20px 0 20px 0;
+    height: 3.5rem;
+}
+
+.accordion-button:not(.collapsed){
+    box-shadow: none;
+}
+
+.accordion-button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: url("../../desing/img/Iconos/arrow.svg") !important;
+}
+
+.accordion-button::after {
+    background-image: url("../../desing/img/Iconos/arrow.svg") !important;
+}
+
+.accordion-item{
+    border: 0px;
+}
+
+.accordion-body{
+    background-color: var(--bg-principal) !important;
+
+}
+
+.accordion-body ul li a{
+    font-family: Cabin;
+    font-size: 13px;
+    color: #2C2C2C;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.footer3Content{
+    padding: 0px;
+}
+
+.footer3Content ul{
+    background-color: #ffffff00;
+    border: 0px;
+}
+
+.footer3Content li a{
+    font-family: Cabin;
+    font-size: 13px;
+    color: #2C2C2C;
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.footer3Content li{
+    font-size: Cabin;
+    font-size: 13px;
+    margin: 0px;
+}
+
+.footer-social{
+    height: 4.2rem;
+}
+
+.footer-social img{
+    height: 100%;
+}
+
+.footer4{
+    height: 3.8rem;
+    background-color: var(--bg-principal);
+}
+
+.footer4 p{
+    font-family: Cabin;
+    font-size: 14px;
+    font-weight: 500;
+}
+.politicas p{
+    font-family: Cabin;
+    font-size: 12px;
+    font-weight: 300;
+    margin-left: 1rem !important;
+}
+
+
+/*Home*/
+section{
+    width: 100%;
+    margin-bottom: 4rem;
+    border-style: solid;
+    border-color: var(--bg-principal);
+    border-width: 1px 0 0 0;
+}
+
+.caruselXL{
+    width: 100%;
+}
+
+.caruselLG{
+    display: none;
+}
+
+.caruselMD{
+    display: none;
+}
+
+.caruselSM{
+    display: none;
+}
+
+.carouselNextIcon {
+    background-image: url("../../desing/img/Iconos/siguiente.svg");
+    width: 2rem;
+    height: 2rem;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 100% 100%;
+    max-width: 1.4rem;
+}
+
+.carousel-control-next{
+    opacity: 1;
+    width: fit-content;
+    height: fit-content;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+
+.carouselPrevIcon {
+    background-image: url("../../desing/img/Iconos/anterior.svg");
+    width: 2rem;
+    height: 2rem;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 100% 100%;
+    max-width: 1.4rem;
+}
+
+.carousel-control-prev{
+    opacity: 1;
+    width: fit-content;
+    height: fit-content;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+
+.card-deck {
+    display: flex;
+    justify-content: space-between;
+}
+
+.imgProducto{
+    background-color: #F7F7F7;
+}
+
+.infoProducto{
+    font-family: Cabin;
+    font-size: 15px;
+}
+
+.promo{
+    font-size: 13px;
+    font-weight: normal;
+    text-decoration: line-through;
+}
+
+.descuento p{
+    color: white;
+    font-size: 13px;
+}
+
+.añadirCarrito{
+    background-color: #FFFFFF;
+    border: none;
+}
+
+.categorias{
+    width: 100%;
+    height: 100%;
+}
+
+.categoria{
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bg-descuento {
+    background-color: var(--bg-descuento);
+}
+
+.fondoCategoria{
+    height: 13rem;
+    width: 100%;
+    max-width: 13rem;
+    background-repeat: no-repeat;
+}
+
+.fondoCategoria p{
+    font-size: 17px;
+    font-family: Raleway;
+    font-weight: bold;
+    text-decoration: underline white;
+}
+
+.info{
+    height: 560px;
+    background-color: #E8C2B2;
+    border-radius: 0 20px 20px 0;
+}
+
+.info div.imagen{
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../desing/img/Anuncios/bocadillos.jpeg");
+
+}
+
+.info div.infoBocadillo{
+    text-align: center;
+    max-width: 19rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.info div.infoBocadillo h4{
+    text-align: center;
+
+}
+
+.info div.infoBocadillo p{
+    font-size: 14px;
+    text-align: center;
+}
+
+
+/*Botones*/
+.buttonDescubre{
+    height: 45px;
+    width: 110px;
+    font-size: 14px;
+    text-align: center;
+    background-color: white;
+    color: #2C2C2C;
+    font-family: Raleway;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 500ms;
+}
+
+.buttonDescubre:hover{
+    height: 45px;
+    width: 110px;
+    font-size: 14px;
+    text-align: center;
+    background-color: #2C2C2C;
+    color: white;
+    border-style: none;
+    font-family: Raleway;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+
+/* Media Querys */
+@media screen and (max-width: 1200px) {
+    .caruselXL{
+        display: none;
+    }
+    .caruselLG{
+        display: block !important;
+        width: 100%;
+    }
+    
+}
+
+@media screen and (max-width: 991px) {
+    .menuSocial{
+        display: none !important;
+    }
+
+    .menuSocialMovil{
+        display: flex;
+
+    }
+
+    .caruselLG{
+        display: none !important;
+    }
+    .caruselMD{
+        display: block !important;
+        width: 100%;
+    }
+
+    .accordion{
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    .socialMediaSM{
+        display: block;
+    }
+
+    .footer3Content{
+        display: none !important;
+    }
+    
+}
+
+@media screen and (max-width: 768px) {
+    .caruselMD{
+        display: none !important;
+    }
+    .caruselSM{
+        display: block !important;
+        width: 100%;
+    }
+
+    
+}
+
+@media screen and (max-width: 600px) {
+    
+    h3{
+        margin-bottom: 0rem;
+    }
+    
+    .info{
+        border-radius: 20px; 
+    }
+
+    .info div.imagen{
+        display: none !important;
+    }
+
+
+    
+}
+
+
+/* Tipografias */
+@font-face {
+    font-family: "Cabin";
+    src: url('/gato-preto/desing/Font/Cabin/Cabin-VariableFont_wdth\,wght.ttf')format('.ttf');
+}
+
+@font-face {
+    font-family: "Raleway";
+    src: url('/gato-preto/desing/Font/Raleway/Raleway-Italic-VariableFont_wght.ttf')format('.ttf');
+}

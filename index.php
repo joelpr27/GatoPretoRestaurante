@@ -1,10 +1,10 @@
 <?php
-    include_once 'controller/pedidoController.php';
+    include_once 'controller/productoController.php';
     include_once 'config/parameters.php';
 
     if(!isset($_GET['controller'])){
-        //Si no se pasa nada se pasara la pagina principal de pedidos
-        header("Location:". URL ."?controller=pedido");
+        //Si no se pasa nada se pasara la pagina principal de producto
+        header("Location:". URL ."?controller=producto");
     }else{
         $nombre_controller = $_GET['controller'].'Controller';
 
@@ -13,20 +13,17 @@
 
             $controller = new $nombre_controller();
 
-            if(isset($_GET['acction'])){
-                $acction = $_GET['acction'];
+            if(isset($_GET['action']) && method_exists($controller,$_GET['action'])){
+                $action = $_GET['action'];
             }else{
-                $acction = action_default;
+                $action = action_default;
             }
 
-            $controller->$acction();
+            $controller->$action();
         
         }else{
-            header("Location:". URL ."?controller=pedido");
+            header("Location:". URL ."?controller=producto");
         }
 
     }
-
-
-
 ?>
