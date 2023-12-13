@@ -2,6 +2,8 @@
     include_once 'config/dataBase.php';
     include_once 'productos.php';
     include_once 'categorias.php';
+    include_once 'clientes.php';
+
 
     class ProductoDAO{
 
@@ -38,6 +40,26 @@
             $producto = $result->fetch_object('productos');
 
             return $producto;
+        }
+
+        public static function getProductByCategory($id_categoria){
+            $con = DataBase::connect();
+
+            $stmt = $con->prepare("SELECT productos.id, productos.nombre AS nombre, productos.id_categoria, categorias.nombre AS nombre_categoria, tiempo_preparacion, precio, productos.img AS img, productos.descuento AS descuento FROM `productos`  INNER JOIN `categorias` ON productos.id_categoria = categorias.id WHERE productos.id_categoria = ?"); 
+            $stmt->bind_param("i",$id_categoria);
+
+
+            $stmt->execute();
+            $result=$stmt->get_result();
+
+            $con->close();
+
+            
+            while($producto = $result->fetch_object('productos')){
+                $res[] = $producto;
+            }
+
+            return $res;
         }
 
 
@@ -77,7 +99,7 @@
         public static function getProductWhitCategory(){
             $con = DataBase::connect();
 
-            $stmt = $con->prepare("SELECT productos.id, productos.nombre AS nombre, productos.id_categoria, categorias.nombre AS nombre_categoria, tiempo_preparacion, precio, productos.img AS img FROM `productos` INNER JOIN `categorias` ON productos.id_categoria = categorias.id"); 
+            $stmt = $con->prepare("SELECT productos.id, productos.nombre AS nombre, productos.id_categoria, categorias.nombre AS nombre_categoria, tiempo_preparacion, precio, productos.img AS img, productos.descuento AS descuento FROM `productos` INNER JOIN `categorias` ON productos.id_categoria = categorias.id"); 
             $stmt->execute();
             $result=$stmt->get_result();
 
@@ -132,6 +154,54 @@
             return $result;
 
         }
+
+        public static function logIn($mail,$password){
+            $con = DataBase::connect();
+
+            $stmt = $con->prepare("SELECT * FROM clientes WHERE correo = ? AND contraseña = ?");
+            $stmt->bind_param("ss", $mail, $password);
+
+            $stmt->execute();
+            $result=$stmt->get_result();
+
+            $con->close();
+
+            $cliente = $result->fetch_object('clientes');
+
+            return $cliente;
+
+        }
+
+        public static function register($name,$surname,$mail,$password){
+            $con = DataBase::connect();
+
+            $stmt = $con->prepare("INSERT INTO clientes (nombre, apellido, correo, contraseña) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $name, $surname, $mail, $password);
+
+            $stmt->execute();
+            $result=$stmt->get_result();
+
+            $con->close();
+
+            return $result; 
+        }
+
+        public static function checkMail($mail){
+            $con = DataBase::connect();
+
+            $stmt = $con->prepare("SELECT * FROM clientes WHERE correo = ?");
+            $stmt->bind_param("s",$mail);
+
+            $stmt->execute();
+            $result=$stmt->get_result();
+
+            $con->close();
+
+            return $result; 
+        }
+
+
+
         
     }
 

@@ -13,6 +13,15 @@ h1{
     height: 100%;
 }
 
+h2{
+    font-family: Raleway;
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+
 h3{
     font-family: Raleway;
     font-size: 36px;
@@ -43,6 +52,31 @@ h6{
     font-weight: 500;
     font-size: 16px;
     margin: 20px 0 20px 0;
+}
+
+h7{
+    font-family: Cabin;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+h8{
+    font-family: Cabin;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+/*General*/
+section{
+    width: 100%;
+    margin-bottom: 4rem;
+    border-style: solid;
+    border-color: var(--bg-principal);
+    border-width: 1px 0 0 0;
+}
+
+p{
+    margin-bottom: 0px;
 }
 
 /*Header*/
@@ -92,7 +126,15 @@ h1 img{
 }
 
 .menuSocialMovil{
-    display: none;
+    display: none !important;
+}
+
+.cantidad{
+    z-index: 1;
+    position: none;
+    border-radius: 100%;
+    background-color: var(--bg-descuento);
+    width: 20px;
 }
 
 .menuSocialMovil a{
@@ -115,8 +157,7 @@ h1 img{
     position: absolute;
     border-radius: 100%;
     background-color: var(--bg-descuento);
-    width: 15px;
-    height: 15px;
+    width: 20px;
 }
 
 .cantidad a{
@@ -307,15 +348,7 @@ li a.promo{
 }
 
 
-/*Home*/
-section{
-    width: 100%;
-    margin-bottom: 4rem;
-    border-style: solid;
-    border-color: var(--bg-principal);
-    border-width: 1px 0 0 0;
-}
-
+/*Carta*/
 .caruselXL{
     width: 100%;
 }
@@ -375,10 +408,6 @@ section{
 .card-deck {
     display: flex;
     justify-content: space-between;
-}
-
-.imgProducto{
-    background-color: #F7F7F7;
 }
 
 .infoProducto{
@@ -465,9 +494,79 @@ section{
     text-align: center;
 }
 
+/*Carrito*/
+
+div.carrito{
+    border: solid #f6f6f6;
+    border-width: 1px 0 1px 0 ;
+}
+
+.tipo{
+    font-family: Cabin;
+    font-size: 14px;
+}
+
+div.tablaCarrito{
+    font-family: Cabin;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.cantidadCarrito{
+    background-color: #F6F6F6;
+    width: fit-content;
+}
+
+.cantidadCarrito button{
+    font-family: Raleway;
+    font-size: 30px;
+    border: none;
+    background-color: #F6F6F6;
+}
+
+.cantidadCarrito p{
+    font-family: Raleway;
+    font-size: 14px;
+
+}
+
+.eliminarCarrito{
+    background-color: #ffffff00;
+    border-style: none;
+}
+
+.resumenPedido{
+    font-family: Cabin;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.resumenPedidoTitulo{
+    border-style: solid;
+    border-width: 0 0 1px 0;
+}
+
+.precioTotal{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.IVA{
+    font-size: 12px;
+    font-weight: normal;
+    color: rgb(140, 140, 140);
+}
+
+.noCarrito{
+    text-align: start !important;
+    font-family: Cabin;
+    font-size: 14px;
+    font-weight: bold;
+}
+
 
 /*Botones*/
-.buttonDescubre{
+.buttonEstilo{
     height: 45px;
     width: 110px;
     font-size: 14px;
@@ -480,7 +579,7 @@ section{
     transition: 500ms;
 }
 
-.buttonDescubre:hover{
+.buttonEstilo:hover{
     height: 45px;
     width: 110px;
     font-size: 14px;
@@ -513,9 +612,9 @@ section{
     }
 
     .menuSocialMovil{
-        display: flex;
-
+        display: flex !important;
     }
+    
 
     .caruselLG{
         display: none !important;

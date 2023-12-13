@@ -7,6 +7,8 @@
             <th> Tiempo_preparacion </td>
             <th> Precio </td>
             <th> Imagen </td>
+            <th> Descuento </td>
+
 
         </tr>
         <?php 
@@ -58,6 +60,9 @@
                 </td>
                 <td>
                     <input name='img' value="<?=$producto->getImg()?>">
+                </td>
+                <td>
+                    <input name='descuento' value="<?=$producto->getDescuento()?>">
                 </td>
                 <td>
                     <button type="submit">Guardar</button>

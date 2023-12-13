@@ -40,7 +40,7 @@ include_once "header.php";
                                             <?php if ($index < $totalProductos) { ?>
                                                 <div class="card border-0 col-xl-2 px-0 py-4 mx-xl-3 p-xl-0">
 
-                                                    <img src="desing/img/Productos/<?= $productos[$index]->getImg() ?>" class="imgProducto object-fit-scale">
+                                                    <img src="desing/img/Productos/<?= $productos[$index]->getImg() ?>" style="background-color: #F7F7F7" class="object-fit-scale">
 
                                                     <div class="infoProducto p-1 d-flex flex-column">
 
@@ -55,13 +55,17 @@ include_once "header.php";
                                                                     <button type="submit" class="añadirCarrito p-0"><img src="desing/img/Iconos/corazon.png" style="height: 12px; width: 12px"></button>
                                                                 </form>
 
-                                                                <p class="align-self-start ms-1 mb-0"><?= $productos[$index]->getPrecio() . "€" ?></p>
+                                                                <p class="align-self-start ms-1 mb-0"><?= $productos[$index]->getPrecioDescuento() . "€" ?></p>
 
-                                                                <p class="promo align-self-start ms-1 mb-0">4,50 €</p>
+                                                                <?php
+                                                                    if($productos[$index]->getDescuento()!= null){
+                                                                        echo "<p class=\"promo align-self-start ms-1 mb-0\">" . $productos[$index]->getPrecio() . "€ </p>";
+                                                                    }
+                                                                ?>
 
                                                                 <div class="descuento d-flex justify-content-center bg-descuento rounded-1 px-1 ms-1">
 
-                                                                    <p class="mb-0">-35%</p>
+                                                                    <p class="mb-0"><?= $productos[$index]->getDescuentoText() ?></p>
 
                                                                 </div>
 
@@ -109,7 +113,7 @@ include_once "header.php";
                                             <?php if ($index < $totalProductos) { ?>
                                                 <div class="card border-0  col-11 mt-4 col-md-5 col-lg-3 col-xl-2 px-0 py-4 mx-md-3 p-md-0 mx-lg-3 p-lg-0 mx-xl-3 p-xl-0">
 
-                                                    <img src="desing/img/Productos/<?= $productos[$index]->getImg() ?>" class="imgProducto object-fit-scale">
+                                                    <img src="desing/img/Productos/<?= $productos[$index]->getImg() ?>" style="background-color: #F7F7F7" class="object-fit-scale">
 
                                                     <div class="infoProducto p-2 d-flex flex-column">
 
@@ -178,7 +182,7 @@ include_once "header.php";
                                             <?php if ($index < $totalProductos) { ?>
                                                 <div class="card border-0  col-11 mt-4 col-md-5 col-lg-3 col-xl-2 px-0 py-4 mx-md-3 p-md-0 mx-lg-3 p-lg-0 mx-xl-3 p-xl-0">
 
-                                                    <img src="desing/img/Productos/<?= $productos[$index]->getImg() ?>" class="imgProducto object-fit-scale">
+                                                    <img src="desing/img/Productos/<?= $productos[$index]->getImg() ?>" style="background-color: #F7F7F7" class="object-fit-scale">
 
                                                     <div class="infoProducto p-2 d-flex flex-column">
 
@@ -247,7 +251,7 @@ include_once "header.php";
                                             <?php if ($index < $totalProductos) { ?>
                                                 <div class="card border-0  col-11 mt-4 col-md-5 col-lg-3 col-xl-2 px-0 py-4 mx-md-3 p-md-0 mx-lg-3 p-lg-0 mx-xl-3 p-xl-0">
 
-                                                    <img src="desing/img/Productos/<?= $productos[$index]->getImg() ?>" class="imgProducto object-fit-scale">
+                                                    <img src="desing/img/Productos/<?= $productos[$index]->getImg() ?>" style="background-color: #F7F7F7" class="object-fit-scale">
 
                                                     <div class="infoProducto p-2 d-flex flex-column">
 
@@ -307,7 +311,7 @@ include_once "header.php";
 
                 <div class=" col-11 mt-4 col-md-5 col-lg-3 col-xl-2 px-0 py-4 mx-md-3 p-md-0 mx-lg-3 p-lg-0 mx-xl-3 p-xl-0">
                     <div class="card border-0">
-                        <img src="desing/img/Productos/<?= $producto->getImg() ?>" class="imgProducto object-fit-scale">
+                        <img src="desing/img/Productos/<?= $producto->getImg() ?>" style="background-color: #F7F7F7" class="object-fit-scale">
                         <div class="infoProducto p-2 d-flex flex-column">
                             <p><?= $producto->getNombre() ?></p>
                             <div class="d-flex justify-content-between">
@@ -345,7 +349,7 @@ include_once "header.php";
             <div class="infoBocadillo pt-5">
                 <h4>DESCUBRE NUESTROS BOCADILLOS</h4>
                 <p>Encuentra tu bocadillo ideal o uno que te sorprenda</p>
-                <button class="buttonDescubre">Descubre</button>
+                <button class="buttonEstilo">Descubre</button>
             </div>
         </div>
 
@@ -356,7 +360,7 @@ include_once "header.php";
         
         <div class="categorias row mx-0 px-5 px-md-0 px-lg-5 px-xl-5 d-flex justify-content-center">
             <?php foreach ($categorias as $categoria) { ?>
-                <div class="categoria col-11 col-md-5 col-lg-3 col-xl-2 px-5 py-4 p-md-0 p-lg-0 p-xl-2 d-flex justify-content-center">
+                <div class="categoria col-11 col-md-5 col-lg-3 col-xl-2 px-5 py-4 p-md-0 p-lg-0 p-xl-2 d-flex justify-content-center" >
                     <div class="fondoCategoria d-flex justify-content-end align-items-center flex-column " style="background-image: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.3)),  url(desing/img/categorias/<?= $categoria->getImg() ?>);">
                         <p><?= strtoupper($categoria->getNombre()) ?></p>
                     </div>

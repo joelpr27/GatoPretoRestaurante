@@ -3,6 +3,8 @@
 include_once 'model/productosDAO.php';
 include_once 'model/pedido.php';
 include_once 'model/favorito.php';
+include_once 'model/clientes.php';
+
 
 
 
@@ -22,6 +24,7 @@ class productoController{
 
                 $pedido = new Pedido(ProductoDAO::getProductById($_POST['id']));
 
+                
                 array_push($_SESSION['carrito'], $pedido);
             }
         }
@@ -44,18 +47,28 @@ class productoController{
 
         $categorias = ProductoDAO::getAllCategory();
 
-        include_once 'views/panelPedido.php';
-
-        //include footer   
+        include_once 'views/home.php';
 
     }   
 
     public function compra(){
         session_start();
-        
+        if(isset($_POST['Add'])){
+            $pedido = $_SESSION['carrito'][$_POST['Add']];
+            $pedido->setCantidad($pedido->getCantidad()+1);
+        }else if(isset($_POST['Del'])){
+            $pedido = $_SESSION['carrito'][$_POST['Del']];
+            if($pedido->getCantidad()==1){
+                unset($_SESSION['carrito'][$_POST['Del']]);
+                $_SESSION['carrito'] = array_values(($_SESSION['carrito']));
+            }else{
+                $pedido->setCantidad($pedido->getCantidad()-1);
+            }
+        }        
         include_once 'views/header.php';
-
         include_once 'views/panelCompra.php';
+        include_once 'views/footer.php';
+
    
     }
 
@@ -63,8 +76,9 @@ class productoController{
         session_start();
         
         include_once 'views/header.php';
-
         include_once 'views/panelFavorito.php';
+        include_once 'views/footer.php';
+
    
     }
 
@@ -138,10 +152,22 @@ class productoController{
             $_SESSION['carrito'] = array();
 
         }else{
-            if(isset($_POST['id'])){
-                $pedido = new Pedido(ProductoDAO::getProductById($_POST['id']));
+            if (isset($_POST['id'])) {              
+                $producto_id = $_POST['id'];
+                $pedidoExistente = false;
 
-                array_push($_SESSION['carrito'], $pedido);
+                foreach ($_SESSION['carrito'] as $pedido) {
+                    if ($pedido->getProducto()->getId() == $producto_id) {
+                        $pedido->setCantidad($pedido->getCantidad() + 1);
+                        $pedidoExistente = true;
+                        break;
+                    }
+                }
+
+                if ($pedidoExistente == false) {
+                    $pedido = new Pedido(ProductoDAO::getProductById($_POST['id']));
+                    array_push($_SESSION['carrito'], $pedido);
+                }
             }
         }
 
@@ -152,9 +178,23 @@ class productoController{
     public function deleteCart(){
         session_start();
 
-        $_SESSION['carrito'] = array();
+        if(isset($_POST['id'])) {              
+            $producto_id = $_POST['id'];
+            $i = 0;
+
+            foreach ($_SESSION['carrito'] as $pedido) {
+                if ($pedido->getProducto()->getId() == $producto_id) {
+                    if($i == 0){
+                        $_SESSION['carrito'] = array();
+                    }
+                }
+
+                $i++;
+
+            }
+        }
  
-        header("Location:".URL."?controller=producto");
+        header("Location:".URL . '?controller=producto&action=compra');
 
     }
 
@@ -180,11 +220,96 @@ class productoController{
     public function deleteFavorite(){
         session_start();
 
-        $_SESSION['favorito'] = array();
+        if(isset($_POST['id'])) {              
+            $producto_id = $_POST['id'];
+            $i = 0;
+
+            foreach ($_SESSION['favorito'] as $pedido) {
+                if ($pedido->getProducto()->getId() == $producto_id) {
+                    if($i == 0){
+                        $_SESSION['favorito'] = array();
+                    }
+                }
+
+                $i++;
+
+            }
+        }
  
-        header("Location:".URL."?controller=producto");
+        header("Location:".URL . '?controller=producto&action=favorito');
 
     }
+
+    public function carta(){
+        session_start();
+        
+        $productos = ProductoDAO::getProductWhitCategory();
+        $categorias = ProductoDAO::getAllCategory();
+
+        include_once 'views/header.php';
+        include_once 'views/carta.php';
+        include_once 'views/footer.php';
+
+   
+    }
+
+    public function confirmar(){
+        //Almacena el pedido en la base de datos
+
+        //Guardo la cookie
+            
+        setcookie('ultimoPedido', $_POST['cantidadFinal'] , 3600);
+
+    }
+
+    public function sessionStart(){
+        session_start();
+        
+        include_once 'views/header.php';
+        include_once 'views/logIn.php';
+        include_once 'views/footer.php';
+
+    }
+
+    public function logIn(){
+
+        $mail = $_POST['mail'];
+        $password = $_POST['password'];
+
+    
+        $users = ProductoDAO::logIn($mail,$password);
+
+        var_dump($users->getCorreo());
+
+        // header("Location:".URL."?controller=producto");
+   
+    }
+
+    public function register(){
+
+        $name = $_POST['name'];
+        $surname = $_POST['surname'];
+        $mail = $_POST['mail'];
+        $password = $_POST['password'];
+
+
+        $users = ProductoDAO::checkMail($mail);
+
+        if ($users->num_rows == 0) {
+
+            $user = ProductoDAO::register($name,$surname,$mail,$password);
+            
+            header("Location:".URL."?controller=producto");
+
+        }else{
+
+            header("Location:".URL . "?controller=producto&action=sessionStart");
+ 
+        }
+
+    }
+
+    
 }
 
 
