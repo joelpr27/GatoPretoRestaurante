@@ -3,6 +3,8 @@
     include_once 'productos.php';
     include_once 'categorias.php';
     include_once 'clientes.php';
+    include_once 'pedidoDB.php';
+
 
 
     class ProductoDAO{
@@ -10,7 +12,7 @@
         public static function getAllProducts (){
 
             $con = DataBase::connect();
-            $stmt = $con->prepare("SELECT * FROM productos");
+            $stmt = $con->prepare("SELECT productos.id, productos.nombre AS nombre, productos.id_categoria, categorias.nombre AS nombre_categoria, tiempo_preparacion, precio, productos.img AS img, productos.descuento AS descuento FROM `productos`  INNER JOIN `categorias` ON productos.id_categoria = categorias.id");
        
             $stmt->execute();
             $result = $stmt->get_result();
@@ -113,11 +115,11 @@
             return $res;
         }
 
-        public static function addProduct($nombre,$id_categoria,$tiempo_preparacion,$precio,$img){
+        public static function addProduct($nombre,$id_categoria,$tiempo_preparacion,$precio,$descuento,$img){
             $con = DataBase::connect();
 
-            $stmt = $con->prepare("INSERT INTO `productos` (`id`, `nombre`, `id_categoria`, `tiempo_preparacion`, `precio`, img) VALUES (NULL, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("siids", $nombre, $id_categoria, $tiempo_preparacion ,$precio,$img);
+            $stmt = $con->prepare("INSERT INTO `productos` (`id`, `nombre`, `id_categoria`, `tiempo_preparacion`, `precio`, descuento, img) VALUES (NULL, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("siidis", $nombre, $id_categoria, $tiempo_preparacion ,$precio,$descuento,$img);
 
             $stmt->execute();
             $result=$stmt->get_result();
@@ -140,11 +142,11 @@
             return $result;
         }
 
-        public static function updateProduct($id,$nombre,$id_categoria,$tiempo_preparacion,$precio,$img){
+        public static function updateProduct($id,$nombre,$id_categoria,$tiempo_preparacion,$precio,$img,$descuento){
             $con = DataBase::connect();
 
-            $stmt = $con->prepare("UPDATE `productos` SET `nombre` = ?, `id_categoria` = ? , `tiempo_preparacion` = ?, `precio` = ?, `img` = ? WHERE `id` = ?");
-            $stmt->bind_param("siidsi",$nombre, $id_categoria ,$tiempo_preparacion ,$precio,$img, $id);
+            $stmt = $con->prepare("UPDATE `productos` SET `nombre` = ?, `id_categoria` = ? , `tiempo_preparacion` = ?, `precio` = ?, `descuento` = ?, `img` = ? WHERE `id` = ?");
+            $stmt->bind_param("siidisi",$nombre, $id_categoria ,$tiempo_preparacion ,$precio,$descuento,$img,$id);
 
             $stmt->execute();
             $result=$stmt->get_result();
@@ -200,8 +202,112 @@
             return $result; 
         }
 
+        public static function getUserById($id){
+            $con = DataBase::connect();
+
+            $stmt = $con->prepare("SELECT * FROM clientes WHERE `id` = ?"); 
+            $stmt->bind_param("i",$id);
 
 
+            $stmt->execute();
+            $result=$stmt->get_result();
+
+            $con->close();
+
+            $user = $result->fetch_object('clientes');
+
+            return $user;
+        }
+
+        public static function updateUser($id,$nombre,$apellido,$contraseña){
+            $con = DataBase::connect();
+
+            $stmt = $con->prepare("UPDATE `clientes` SET `nombre` = ?, `apellido` = ? , `contraseña` = ? WHERE `id` = ?");
+            $stmt->bind_param("sssi",$nombre,$apellido,$contraseña,$id);
+
+            $stmt->execute();
+            $result=$stmt->get_result();
+
+            $con->close();
+
+            return $result;
+
+        }
+
+        public static function addPedido($id_cliente,$precioTotal){
+            $con = DataBase::connect();
+
+            $stmt = $con->prepare("INSERT INTO `pedidos` (`id_cliente`, `precio_total`) VALUES (?, ?)");
+            $stmt->bind_param("id",$id_cliente, $precioTotal );
+
+            $stmt->execute();
+            $result=$stmt->get_result();
+
+            $pedidoProd = $con->prepare("SELECT `id` FROM `pedidos` WHERE `id_cliente` = ? ORDER BY `fecha` DESC LIMIT 1");
+            $pedidoProd->bind_param("i",$id_cliente);
+
+            $pedidoProd->execute();
+            $resultPP = $pedidoProd->get_result();
+            
+            $res = $resultPP->fetch_assoc();
+            
+            $id = intval($res['id']);
+
+            return $id;   
+        }
+
+        public static function addPedidoProducto($pedidoID,$id_producto,$cantidad,$tiempo_P_Total,$precio){
+            $con = DataBase::connect();
+
+            $stmt = $con->prepare("INSERT INTO `pedido_producto` (`id_pedido`, `id_producto`, `cantidad_producto`,`precio_producto`,`tiempo_total`) VALUES (?, ? ,? ,? ,?)");
+            $stmt->bind_param("iiiid",$pedidoID,$id_producto,$cantidad,$tiempo_P_Total,$precio);
+
+            $stmt->execute();
+            $result=$stmt->get_result();
+
+            $con->close();
+            return $result; 
+        }
+
+        public static function getPedidos($id){
+            $con = DataBase::connect();
+
+            $stmt = $con->prepare("SELECT * FROM pedidos WHERE `id_cliente` = ?"); 
+            $stmt->bind_param("i",$id);
+
+
+            $stmt->execute();
+            $result=$stmt->get_result();
+
+            $con->close();
+
+            $res =[];
+
+            while($producto = $result->fetch_object('pedidoDB')){
+                $res[] = $producto;
+            }
+
+            return $res;
+        }
+
+        public static function getUltimoPedido($id){
+            $con = DataBase::connect();
+
+            $stmt = $con->prepare("SELECT * FROM pedidos WHERE `id` = ?"); 
+            $stmt->bind_param("i",$id);
+
+
+            $stmt->execute();
+            $result=$stmt->get_result();
+
+            $con->close();
+
+            $res = $result->fetch_object('pedidoDB');
+
+            return $res;
+        }
+
+        
         
     }
 

@@ -45,8 +45,15 @@
                         <div class="carro d-flex justify-content-end align-items-start">
                             <img src="desing/img/Iconos/user.png" style="height: 19px; width: 19px">
                         </div>
+                        <?php
+                           
+                            if(!isset($_SESSION['usuario'])){
+                                echo "<p><a href=". URL . "?controller=producto&action=sessionStart> Perfil </a></p>";
+                            }else{
+                                echo "<p><a href=". URL . "?controller=producto&action=userPage>" . $_SESSION['usuario'][0]->getNombre() ."</a></p>";
+                            }
+                        ?>
 
-                        <p><a href="<?= URL . '?controller=producto&action=sessionStart' ?>">Perfil</a></p>
                     </div>
 
                     <div class="menuSocial d-flex flex-column align-items-center me-2">

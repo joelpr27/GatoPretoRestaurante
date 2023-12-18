@@ -1,10 +1,27 @@
-<form action="<?=URL.'?controller=producto&action=add'?>" method="post">
+<html>
+
+<?php include_once "header.php"; ?>
+
+<section>
+    <div class="d-flex justify-content-between">
+
+        <h5>Informacion del Producto:</h5>
+
+    </div>
+
+    <div class="row w-100 mx-0 px-3 d-flex justify-content-center">
+
+    <form action="<?=URL.'?controller=producto&action=add'?>" method="post" class="mt-5 d-flex justify-content-center">
     <table border=1 style= 'text-align: center'>
         <tr>
             <th> Nombre </td>
             <th> Categoria </td>
             <th> Tiempo_preparacion </td>
             <th> Precio </td>
+            <th> Descuento (Opcional) </td>
+            <th> Imagen (nombreImg.png)</td>
+
+
         </tr>
         <?php 
             include_once "model/productosDao.php";
@@ -43,6 +60,9 @@
                     <input name='precio'>
                 </td>
                 <td>
+                    <input name='descuento'>
+                </td>
+                <td>
                     <input name='img'>
                 </td>
                 <td>
@@ -52,3 +72,5 @@
      </table>
      
 </form> 
+    </div>
+</section>

@@ -2,15 +2,29 @@
 
     class Clientes{
 
+        protected $id;
         protected $nombre;
         protected $apellido;
         protected $correo; 
         protected $contraseña;
+        protected $rol;
+
 
         public function __construct(){
         }
 
 
+        public function getId()
+        {
+                return $this->id;
+        }
+
+        public function setId($id)
+        {
+                $this->id = $id;
+
+                return $this;
+        }
 
 
         public function getNombre()
@@ -61,6 +75,20 @@
         public function setContraseña($contraseña)
         {
                 $this->contraseña = $contraseña;
+
+                return $this;
+        }
+
+
+        
+        public function getRol()
+        {
+                return $this->rol;
+        }
+
+        public function setRol($rol)
+        {
+                $this->rol = $rol;
 
                 return $this;
         }

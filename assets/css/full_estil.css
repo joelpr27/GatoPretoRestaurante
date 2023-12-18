@@ -286,7 +286,6 @@ li a.promo{
 
 .accordion-body{
     background-color: var(--bg-principal) !important;
-
 }
 
 .accordion-body ul li a{
@@ -494,6 +493,16 @@ li a.promo{
     text-align: center;
 }
 
+.inputUpdateDisabled{
+    max-width: 83px;
+    text-align: center;
+}
+.inputUpdate{
+    max-width: 83px;
+    border: 0px;
+    text-align: center;
+}
+
 /*Carrito*/
 
 div.carrito{
@@ -566,17 +575,19 @@ div.tablaCarrito{
 
 
 /*Botones*/
+
 .buttonEstilo{
     height: 45px;
     width: 110px;
     font-size: 14px;
     text-align: center;
-    background-color: white;
     color: #2C2C2C;
+    background-color: white;
     font-family: Raleway;
     font-size: 14px;
     font-weight: bold;
     transition: 500ms;
+    padding: 0px;
 }
 
 .buttonEstilo:hover{
@@ -591,6 +602,64 @@ div.tablaCarrito{
     font-size: 14px;
     font-weight: bold;
 }
+
+.buttonEstilo2{
+    height: 45px;
+    width: 110px;
+    font-size: 14px;
+    text-align: center;
+    color: white;
+    background-color: #2C2C2C;
+    font-family: Raleway;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 500ms;
+    padding: 0px;
+}
+
+.buttonEstiloAtras{
+    height: 45px;
+    width: 110px;
+    font-size: 14px;
+    font-weight: 400 !important;
+    text-align: center !important;
+    color: #2C2C2C;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    font-family: Raleway;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 500ms;
+    padding: 0px;
+}
+
+.buttonEstiloAtras:hover{
+    height: 45px;
+    width: 110px;
+    font-size: 14px;
+    text-align: center;
+    background-color: #2C2C2C;
+    color: white;
+    border-style: none;
+    font-family: Raleway;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.buttonEstiloAtras:hover{
+    height: 45px;
+    width: 110px;
+    font-size: 14px;
+    text-align: center;
+    background-color: #2C2C2C;
+    color: white;
+    border-style: none;
+    font-family: Raleway;
+    font-size: 14px;
+    font-weight: bold;
+}
+
 
 
 

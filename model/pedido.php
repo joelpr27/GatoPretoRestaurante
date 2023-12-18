@@ -1,9 +1,9 @@
 <?php
 
     class Pedido{
-
-        private $producto;
-        private $cantidad = 1;
+         
+        protected $producto;
+        protected $cantidad = 1;
 
         public function __construct($producto){
             $this->producto = $producto;
