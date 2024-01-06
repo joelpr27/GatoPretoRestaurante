@@ -60,11 +60,12 @@ include_once 'utils/calculadoraPrecios.php'
                         <div class="col-1 text-center d-flex justify-content-center align-items-center p-0">
                             <form action="<?= URL . "?controller=producto&action=addCart" ?>" method="post" class="m-0">
                                 <input hidden name="id" value="<?= $pedido->getProducto()->getId() ?>">
-                                <button type="submit" class="añadirCarrito"><img src="desing/img/Iconos/shopping-cart.png" style="height: 19px; width: 19px"></button>
+                                <button type="submit" class="añadirCarrito" name="pos" value="<?= $pos ?>"><img src="desing/img/Iconos/shopping-cart.png" style="height: 19px; width: 19px"></button>
                             </form>
                             <form action="<?= URL . "?controller=producto&action=deleteFavorite" ?>" method="post" class="m-0">
                                 <input hidden name="id" value="<?= $pedido->getProducto()->getId() ?>">
-                                <button type="submit" class="eliminarCarrito p-0 m-0"><img src="desing/img/Iconos/cross.svg" style="max-width: 20px;"></button>
+                                <button type="submit" class="eliminarCarrito p-0 m-0" name="pos" value="<?= $pos ?>"><img src="desing/img/Iconos/cross.svg" style="max-width: 20px;"></button>
+                                
                             </form>
                         </div>
 
@@ -101,7 +102,6 @@ include_once 'utils/calculadoraPrecios.php'
 
 
                 </div>
-                <button class="w-100"></button>
             </div>
         </div>
 

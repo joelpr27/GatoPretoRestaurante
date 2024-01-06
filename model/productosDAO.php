@@ -1,9 +1,12 @@
 <?php
     include_once 'config/dataBase.php';
     include_once 'productos.php';
+    include_once 'bebidas.php';
     include_once 'categorias.php';
     include_once 'clientes.php';
     include_once 'pedidoDB.php';
+    include_once 'detallePedidoDB.php';
+
 
 
 
@@ -27,23 +30,6 @@
             
         }
 
-        public static function getProductById($id){
-            $con = DataBase::connect();
-
-            $stmt = $con->prepare("SELECT * FROM productos WHERE `id` = ?"); 
-            $stmt->bind_param("i",$id);
-
-
-            $stmt->execute();
-            $result=$stmt->get_result();
-
-            $con->close();
-
-            $producto = $result->fetch_object('productos');
-
-            return $producto;
-        }
-
         public static function getProductByCategory($id_categoria){
             $con = DataBase::connect();
 
@@ -64,6 +50,62 @@
             return $res;
         }
 
+        public static function getBebidaByCategory($id_categoria){
+            $con = DataBase::connect();
+
+            $stmt = $con->prepare("SELECT productos.id, productos.nombre AS nombre, productos.id_categoria, categorias.nombre AS nombre_categoria, tiempo_preparacion, precio, productos.img AS img, productos.descuento AS descuento, productos.pajita AS pajita FROM `productos`  INNER JOIN `categorias` ON productos.id_categoria = categorias.id WHERE productos.id_categoria = ?"); 
+            $stmt->bind_param("i",$id_categoria);
+
+
+            $stmt->execute();
+            $result=$stmt->get_result();
+
+            $con->close();
+
+            
+            while($producto = $result->fetch_object('bebidas')){
+                $res[] = $producto;
+            }
+
+            return $res;
+        }
+
+        public static function getProductById($id){
+            $con = DataBase::connect();
+
+            $stmt = $con->prepare("SELECT * FROM productos WHERE `id` = ?"); 
+            $stmt->bind_param("i",$id);
+
+
+            $stmt->execute();
+            $result=$stmt->get_result();
+
+            $con->close();
+
+            $producto = $result->fetch_object('productos');
+
+            return $producto;
+        }
+
+        public static function getBebidas(){
+            $con = DataBase::connect();
+
+            $stmt = $con->prepare("SELECT * FROM productos WHERE `id_categoria` IN ('4','5','6')");
+
+            $stmt->execute();
+            $result=$stmt->get_result();
+
+            $con->close();
+
+            $res =[];
+
+            while($bebidas = $result->fetch_object('bebidas')){
+                $res[] = $bebidas;
+            }
+
+            return $res;
+
+        }
 
         public static function getAllCategory(){
             $con = DataBase::connect();
@@ -260,7 +302,7 @@
             $con = DataBase::connect();
 
             $stmt = $con->prepare("INSERT INTO `pedido_producto` (`id_pedido`, `id_producto`, `cantidad_producto`,`precio_producto`,`tiempo_total`) VALUES (?, ? ,? ,? ,?)");
-            $stmt->bind_param("iiiid",$pedidoID,$id_producto,$cantidad,$tiempo_P_Total,$precio);
+            $stmt->bind_param("iiidd",$pedidoID,$id_producto,$cantidad,$precio,$tiempo_P_Total);
 
             $stmt->execute();
             $result=$stmt->get_result();
@@ -303,6 +345,27 @@
             $con->close();
 
             $res = $result->fetch_object('pedidoDB');
+
+            return $res;
+        }
+
+        public static function getDetallePedidos($id){
+            $con = DataBase::connect();
+
+            $stmt = $con->prepare("SELECT * FROM pedido_producto WHERE `id_pedido` = ?"); 
+            $stmt->bind_param("i",$id);
+
+
+            $stmt->execute();
+            $result=$stmt->get_result();
+
+            $con->close();
+
+            $res =[];
+
+            while($producto = $result->fetch_object('detallePedidoDB')){
+                $res[] = $producto;
+            }
 
             return $res;
         }

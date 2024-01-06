@@ -304,42 +304,7 @@ include_once "header.php";
             </div>
         </div>
 
-        <!-- <div class="row mx-0 px-3 px-sm-5 px-md-0 px-lg-0 d-flex justify-content-center">
 
-
-            <?php foreach ($productos as $producto) { ?>
-
-                <div class=" col-11 mt-4 col-md-5 col-lg-3 col-xl-2 px-0 py-4 mx-md-3 p-md-0 mx-lg-3 p-lg-0 mx-xl-3 p-xl-0">
-                    <div class="card border-0">
-                        <img src="desing/img/Productos/<?= $producto->getImg() ?>" style="background-color: #F7F7F7" class="object-fit-scale">
-                        <div class="infoProducto p-2 d-flex flex-column">
-                            <p><?= $producto->getNombre() ?></p>
-                            <div class="d-flex justify-content-between">
-                                <div class="m-0 fw-bold d-flex align-items-center">
-                                    <form action="<?= URL . "?controller=producto&action=addFavorite" ?>" method="post" class="m-0">
-                                        <input hidden name="id" value="<?= $producto->getId() ?>">
-                                        <button type="submit" class="añadirCarrito p-0"><img src="desing/img/Iconos/corazon.png" style="height: 12px; width: 12px"></button>
-                                    </form>
-                                    <p class="align-self-start ms-1 mb-0"><?= $producto->getPrecio() . "€" ?></p>
-                                    <p class="promo align-self-start ms-2 mb-0">4,50 €</p>
-                                    <div class="descuento d-flex justify-content-center bg-descuento rounded-1 px-1 ms-1">
-                                        <p class="mb-0">-35%</p>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-end">
-                                    <form action="<?= URL . "?controller=producto&action=addCart" ?>" method="post" class="m-0">
-                                        <input hidden name="id" value="<?= $producto->getId() ?>">
-                                        <button type="submit" class="añadirCarrito"><img src="desing/img/Iconos/shopping-cart.png" style="height: 19px; width: 19px"></button>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            <?php } ?>
-        </div> -->
     </section>
 
     <section class="row pt-5 d-flex justify-content-center d-flex flex-column justify-content-center align-items-center">
@@ -349,7 +314,10 @@ include_once "header.php";
             <div class="infoBocadillo pt-5">
                 <h4>DESCUBRE NUESTROS BOCADILLOS</h4>
                 <p>Encuentra tu bocadillo ideal o uno que te sorprenda</p>
-                <button class="buttonEstilo">Descubre</button>
+                <form action="<?= URL . "?controller=producto&action=goCategory" ?>" method="post" class="d-flex justify-content-center">
+                    <input hidden name="categoria" value="2">
+                    <button type="submit" class="buttonEstilo">Descubre</button>
+                </form>
             </div>
         </div>
 
@@ -368,63 +336,6 @@ include_once "header.php";
             <?php } ?>
         </div>
     </section>
-
-
-
-    <!-- <section>
-        <form action="<?= URL . "?controller=producto&action=addTable" ?>" method="post">
-            <button type="submit">Añadir</button>
-        </form>
-
-        <form action="<?= URL . "?controller=producto&action=compra" ?>" method="post">
-            <button type="submit">Carrito <?= count($_SESSION['carrito']) ?> </button>
-        </form>
-
-        <table border=1 style='text-align: center'>
-            <tr>
-                <th> Producto_id </th>
-                <th> Nombre </th>
-                <th> Categoria </th>
-                <th> Tiempo_preparacion </th>
-                <th> Precio </th>
-            </tr>
-            <?php
-            foreach ($productos as $producto) {
-            ?>
-
-                <tr>
-                    <td> <?= $producto->getId() ?> </td>
-                    <td> <?= $producto->getNombre() ?> </td>
-                    <td> <?= $producto->getNombre_categoria() ?> </td>
-                    <td> <?= $producto->getTiempo_preparacion() . " min" ?> </td>
-                    <td> <?= $producto->getPrecio() . "€" ?></td>
-                    <td>
-                        <form action="<?= URL . "?controller=producto&action=updateTable" ?>" method="post">
-                            <input hidden name="id" value="<?= $producto->getId() ?>">
-                            <input hidden name="nombre" value="<?= $producto->getNombre() ?>">
-                            <input hidden name="id_categoria" value="<?= $producto->getId_categoria() ?>">
-                            <input hidden name="tiempo_preparacion" value="<?= $producto->getTiempo_preparacion() ?>">
-                            <input hidden name="precio" value="<?= $producto->getPrecio() ?>">
-                            <button type="submit">Modificar</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="<?= URL . "?controller=producto&action=delete" ?>" method="post">
-                            <input hidden name="id" value="<?= $producto->getId() ?>">
-                            <button type="submit">Eliminar</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="<?= URL . "?controller=producto&action=index" ?>" method="post">
-                            <input hidden name="id" value="<?= $producto->getId() ?>">
-                            <button type="submit">Añadir al carrito</button>
-                        </form>
-                    </td>
-                </tr>
-            <?php } ?>
-
-        </table>
-    </section> -->
 
 </body>
 

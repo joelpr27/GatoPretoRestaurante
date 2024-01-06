@@ -111,7 +111,14 @@
                             <img src="desing/img/Iconos/user.png" style="height: 19px; width: 19px">
                         </div>
 
-                        <p><a href="<?= URL . '?controller=producto&action=logIn' ?>">Perfil</a></p>
+                        <?php
+                           
+                           if(!isset($_SESSION['usuario'])){
+                               echo "<p><a href=". URL . "?controller=producto&action=sessionStart> Perfil </a></p>";
+                           }else{
+                               echo "<p><a href=". URL . "?controller=producto&action=userPage>" . $_SESSION['usuario'][0]->getNombre() ."</a></p>";
+                           }
+                       ?>
                     </div>
 
                     <div class="menuSocialMovil d-flex flex-column align-items-center me-2">
@@ -158,31 +165,49 @@
                     </div>
                 </div>
                 <ul class="navbar-nav">
-                    <li class="nav-item mx-auto">
+                    <li class="nav-item mx-auto" style="height: 38px;">
                         <a class="nav-link" aria-current="page" href="#">NEW IN</a>
                     </li>
-                    <li class="nav-item mx-auto">
-                        <a class="nav-link" href="#">PASTAS</a>
+                    <li class="nav-item mx-auto" style="height: 38px;">
+                        <form action="<?= URL . "?controller=producto&action=goCategory" ?>" method="post">
+                            <input hidden name="categoria" value="1">
+                            <button type="submit" style="border-style: none; background-color: #FFFFFF; padding: 8px;"><a class="nav-link" style="padding: 0px;">PASTAS</a></button>
+                        </form>
                     </li>
-                    <li class="nav-item mx-auto">
-                        <a class="nav-link" href="#">PASTELES</a>
+                    <li class="nav-item mx-auto" style="height: 38px;">
+                        <form action="<?= URL . "?controller=producto&action=goCategory" ?>" method="post">
+                            <input hidden name="categoria" value="3">
+                            <button type="submit" style="border-style: none; background-color: #FFFFFF; padding: 8px;"><a class="nav-link" style="padding: 0px;">PASTELES</a></button>
+                        </form>
                     </li>
-                    <li class="nav-item mx-auto">
-                        <a class="nav-link" href="#">BOCADILLOS</a>
+                    <li class="nav-item mx-auto" style="height: 38px;">
+                        <form action="<?= URL . "?controller=producto&action=goCategory" ?>" method="post">
+                            <input hidden name="categoria" value="2">
+                            <button type="submit" style="border-style: none; background-color: #FFFFFF; padding: 8px;"><a class="nav-link" style="padding: 0px;">BOCADILLOS</a></button>
+                        </form>
                     </li>
-                    <li class="nav-item mx-auto">
-                        <a class="nav-link" href="#">CAFES</a>
+                    <li class="nav-item mx-auto" style="height: 38px;">
+                        <form action="<?= URL . "?controller=producto&action=goCategory" ?>" method="post">
+                            <input hidden name="categoria" value="6">
+                            <button type="submit" style="border-style: none; background-color: #FFFFFF; padding: 8px;"><a class="nav-link" style="padding: 0px;">CAFES</a></button>
+                        </form>
                     </li>
-                    <li class="nav-item mx-auto">
-                        <a class="nav-link" href="#">ZUMOS</a>
+                    <li class="nav-item mx-auto" style="height: 38px;">
+                        <form action="<?= URL . "?controller=producto&action=goCategory" ?>" method="post">
+                            <input hidden name="categoria" value="4">
+                            <button type="submit" style="border-style: none; background-color: #FFFFFF; padding: 8px;"><a class="nav-link" style="padding: 0px;">REFRESCOS</a></button>
+                        </form>
                     </li>
-                    <li class="nav-item mx-auto">
-                        <a class="nav-link" href="#">REFRESCOS</a>
+                    <li class="nav-item mx-auto" style="height: 38px;">
+                        <form action="<?= URL . "?controller=producto&action=goCategory" ?>" method="post">
+                            <input hidden name="categoria" value="5">
+                            <button type="submit" style="border-style: none; background-color: #FFFFFF; padding: 8px;"><a class="nav-link" style="padding: 0px;">CHOCOLATES</button>
+                        </form>
                     </li>
-                    <li class="nav-item mx-auto">
+                    <li class="nav-item mx-auto" style="height: 38px;">
                         <a class="nav-link promo" style="text-decoration: none;" href="#">PROMOCIONES</a>
                     </li>
-                    <li class="nav-item mx-auto">
+                    <li class="nav-item mx-auto" style="height: 38px;">
                         <a class="nav-link" href="<?= URL . '?controller=producto&action=carta' ?>">CARTA</a>
                     </li>
                 </ul>

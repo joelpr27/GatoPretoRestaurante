@@ -22,7 +22,7 @@ include_once "header.php";
 <body class="d-flex flex-column justify-content-center">
 
     <section class="d-flex flex-column justify-content-center align-items-center pb-3">
-        <h3>ARTÍCULOS DE INTERÉS</h3>
+        <h3 class="caruselXL">ARTÍCULOS DE INTERÉS</h3>
 
         <div class="caruselXL">
             <div class="row w-100 mx-0 px-3 d-flex justify-content-center">
@@ -94,6 +94,10 @@ include_once "header.php";
         foreach ($categorias as $categoria) {
 
             $productosByCategoria = ProductoDAO::getProductByCategory($categoria->getId());
+            $bebidasByCategoria = ProductoDAO::getBebidaByCategory($categoria->getId());
+
+            
+
         ?>
             <h3 id="<?= $categoria->getNombre() ?>"><?= $categoria->getNombre() ?></h3>
 
@@ -104,72 +108,157 @@ include_once "header.php";
                 <div class="caruselXL">
                     <div class="row w-100 mx-0 px-3 d-flex justify-content-center">
                         <div class="container mt-5">
-                            <div id="myCarousel<?php echo $categoria->getNombre() ?>" class="carousel slide">
-                                <div class="carousel-inner">
-                                    <?php $totalProductos = count($productosByCategoria); ?>
-                                    <?php $numProductos = ceil($totalProductos / 5); ?>
+                            <?php
+                                if ($categoria->getId() != 4 && $categoria->getId() != 5 && $categoria->getId() != 6) {
+                                ?>
+                                <div id="myCarouselXL<?php echo $categoria->getNombre() ?>" class="carousel slide">
+                                    <div class="carousel-inner">
+                                        <?php $totalProductos = count($productosByCategoria); ?>
+                                        <?php $numProductos = ceil($totalProductos / 5); ?>
 
-                                    <?php for ($i = 0; $i < $numProductos; $i++) { ?>
-                                        <div class="carousel-item <?php echo ($i === 0) ? 'active' : ''; ?>">
-                                            <div class="card-deck px-2 d-flex justify-content-evenly">
-                                                <?php for ($j = 0; $j < 5; $j++) { ?>
-                                                    <?php $index = $i * 5 + $j; ?>
-                                                    <?php if ($index < $totalProductos) { ?>
-                                                        <div class="card border-0 col-xl-2 px-0 py-4 mx-xl-3 p-xl-0">
+                                        <?php for ($i = 0; $i < $numProductos; $i++) { ?>
+                                            <div class="carousel-item <?php echo ($i === 0) ? 'active' : ''; ?>">
+                                                <div class="card-deck px-2 d-flex justify-content-evenly">
+                                                    <?php for ($j = 0; $j < 5; $j++) { ?>
+                                                        <?php $index = $i * 5 + $j; ?>
+                                                        <?php if ($index < $totalProductos) { ?>
+                                                            <div class="card border-0 col-xl-2 px-0 py-4 mx-xl-3 p-xl-0">
 
-                                                            <img src="desing/img/Productos/<?= $productosByCategoria[$index]->getImg() ?>" style="background-color: #F7F7F7" class="object-fit-scale">
+                                                                <img src="desing/img/Productos/<?= $productosByCategoria[$index]->getImg() ?>" style="background-color: #F7F7F7" class="object-fit-scale">
 
-                                                            <div class="infoProducto p-1 d-flex flex-column">
+                                                                <div class="infoProducto p-1 d-flex flex-column">
 
-                                                                <p><?= $productosByCategoria[$index]->getNombre() ?></p>
+                                                                    <p><?= $productosByCategoria[$index]->getNombre() ?></p>
 
-                                                                <div class="d-flex justify-content-between">
+                                                                    <div class="d-flex justify-content-between">
 
-                                                                    <div class="m-0 fw-bold d-flex align-items-center">
+                                                                        <div class="m-0 fw-bold d-flex align-items-center">
 
-                                                                        <form action="<?= URL . "?controller=producto&action=addFavorite" ?>" method="post" class="m-0">
-                                                                            <input hidden name="id" value="<?= $productosByCategoria[$index]->getId() ?>">
-                                                                            <button type="submit" class="añadirCarrito p-0"><img src="desing/img/Iconos/corazon.png" style="height: 12px; width: 12px"></button>
-                                                                        </form>
+                                                                            <form action="<?= URL . "?controller=producto&action=addFavorite" ?>" method="post" class="m-0">
+                                                                                <input hidden name="id" value="<?= $productosByCategoria[$index]->getId() ?>">
+                                                                                <button type="submit" class="añadirCarrito p-0"><img src="desing/img/Iconos/corazon.png" style="height: 12px; width: 12px"></button>
+                                                                            </form>
 
-                                                                        <p class="align-self-start ms-1 mb-0"><?= $productosByCategoria[$index]->getPrecioDescuento() . "€" ?></p>
+                                                                            <p class="align-self-start ms-1 mb-0"><?= $productosByCategoria[$index]->getPrecioDescuento() . "€" ?></p>
 
-                                                                        <?php
-                                                                        if ($productos[$index]->getDescuento() != null) {
-                                                                            echo "<p class=\"promo align-self-start ms-1 mb-0\">" . $productosByCategoria[$index]->getPrecio() . "€ </p>";
-                                                                        }
-                                                                        ?>
+                                                                            <?php
+                                                                            if ($productos[$index]->getDescuento() != null) {
+                                                                                echo "<p class=\"promo align-self-start ms-1 mb-0\">" . $productosByCategoria[$index]->getPrecio() . "€ </p>";
+                                                                            }
+                                                                            ?>
 
-                                                                        <div class="descuento d-flex justify-content-center bg-descuento rounded-1 px-1 ms-1">
+                                                                            <div class="descuento d-flex justify-content-center bg-descuento rounded-1 px-1 ms-1">
 
-                                                                            <p class="mb-0"><?= $productosByCategoria[$index]->getDescuentoText() ?></p>
+                                                                                <p class="mb-0"><?= $productosByCategoria[$index]->getDescuentoText() ?></p>
 
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="d-flex align-items-center justify-content-end">
+                                                                            <form action="<?= URL . "?controller=producto&action=addCart" ?>" method="post" class="m-0">
+                                                                                <input hidden name="id" value="<?= $productosByCategoria[$index]->getId() ?>">
+                                                                                <button type="submit" class="añadirCarrito"><img src="desing/img/Iconos/shopping-cart.png" style="height: 19px; width: 19px"></button>
+                                                                            </form>
                                                                         </div>
 
                                                                     </div>
-                                                                    <div class="d-flex align-items-center justify-content-end">
-                                                                        <form action="<?= URL . "?controller=producto&action=addCart" ?>" method="post" class="m-0">
-                                                                            <input hidden name="id" value="<?= $productosByCategoria[$index]->getId() ?>">
-                                                                            <button type="submit" class="añadirCarrito"><img src="desing/img/Iconos/shopping-cart.png" style="height: 19px; width: 19px"></button>
-                                                                        </form>
-                                                                    </div>
-
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        <?php } ?>
                                                     <?php } ?>
-                                                <?php } ?>
+                                                </div>
                                             </div>
-                                        </div>
-                                    <?php } ?>
+                                        <?php } ?>
+                                    </div>
+                                    <a class="carousel-control-prev d-flex justify-content-start ms-4" href="#myCarouselXL<?php echo $categoria->getNombre() ?>" role="button" data-slide="prev">
+                                        <span class="carouselPrevIcon" aria-hidden="true"></span>
+                                    </a>
+                                    <a class="carousel-control-next d-flex justify-content-end me-4" href="#myCarouselXL<?php echo $categoria->getNombre() ?>" role="button" data-slide="next">
+                                        <span class="carouselNextIcon" aria-hidden="true"></span>
+                                    </a>
                                 </div>
-                                <a class="carousel-control-prev d-flex justify-content-start ms-4" href="#myCarousel<?php echo $categoria->getNombre() ?>" role="button" data-slide="prev">
-                                    <span class="carouselPrevIcon" aria-hidden="true"></span>
-                                </a>
-                                <a class="carousel-control-next d-flex justify-content-end me-4" href="#myCarousel<?php echo $categoria->getNombre() ?>" role="button" data-slide="next">
-                                    <span class="carouselNextIcon" aria-hidden="true"></span>
-                                </a>
-                            </div>
+                            <?php
+                                }else{
+                            ?>
+                                <div id="myCarouselXL<?php echo $categoria->getNombre() ?>" class="carousel slide">
+                                    <div class="carousel-inner">
+                                        <?php $totalProductos = count($bebidasByCategoria); ?>
+                                        <?php $numProductos = ceil($totalProductos / 5); ?>
+
+                                        <?php for ($i = 0; $i < $numProductos; $i++) { ?>
+                                            <div class="carousel-item <?php echo ($i === 0) ? 'active' : ''; ?>">
+                                                <div class="card-deck px-2 d-flex justify-content-evenly">
+                                                    <?php for ($j = 0; $j < 5; $j++) { ?>
+                                                        <?php $index = $i * 5 + $j; ?>
+                                                        <?php if ($index < $totalProductos) { ?>
+                                                            <div class="card border-0 col-xl-2 px-0 py-4 mx-xl-3 p-xl-0">
+                                                                <?php
+                                                                    if($bebidasByCategoria[$index]->getPajita() == 1){
+                                                                ?>
+                                                                    <img src="desing/img/Productos/<?= $bebidasByCategoria[$index]->getImg() ?>" style="background-color: #F7F7F7; z-index: 0;" class="object-fit-scale">
+                                                                    <img src="desing/img/Iconos/pajita.png" style="z-index: 1; position: absolute; width: 100px;" class="d-flex object-fit-scale">
+                                                                <?php
+                                                                    }else{
+                                                                ?>
+                                                                    <img src="desing/img/Productos/<?= $bebidasByCategoria[$index]->getImg() ?>" style="background-color: #F7F7F7" class="object-fit-scale">
+                                                                <?php
+                                                                    }
+                                                                ?>
+                                                                <div class="infoProducto p-1 d-flex flex-column">
+
+                                                                <p><?= $bebidasByCategoria[$index]->getNombre() ?></p>
+
+
+                                                                    <div class="d-flex justify-content-between">
+
+                                                                        <div class="m-0 fw-bold d-flex align-items-center">
+
+                                                                            <form action="<?= URL . "?controller=producto&action=addFavorite" ?>" method="post" class="m-0">
+                                                                                <input hidden name="id" value="<?= $bebidasByCategoria[$index]->getId() ?>">
+                                                                                <button type="submit" class="añadirCarrito p-0"><img src="desing/img/Iconos/corazon.png" style="height: 12px; width: 12px"></button>
+                                                                            </form>
+
+                                                                            <p class="align-self-start ms-1 mb-0"><?= $bebidasByCategoria[$index]->getPrecioDescuento() . "€" ?></p>
+
+                                                                            <?php
+                                                                            if ($productos[$index]->getDescuento() != null) {
+                                                                                echo "<p class=\"promo align-self-start ms-1 mb-0\">" . $bebidasByCategoria[$index]->getPrecio() . "€ </p>";
+                                                                            }
+                                                                            ?>
+
+                                                                            <div class="descuento d-flex justify-content-center bg-descuento rounded-1 px-1 ms-1">
+
+                                                                                <p class="mb-0"><?= $bebidasByCategoria[$index]->getDescuentoText() ?></p>
+
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="d-flex align-items-center justify-content-end">
+                                                                            <form action="<?= URL . "?controller=producto&action=addCart" ?>" method="post" class="m-0">
+                                                                                <input hidden name="id" value="<?= $bebidasByCategoria[$index]->getId() ?>">
+                                                                                <button type="submit" class="añadirCarrito"><img src="desing/img/Iconos/shopping-cart.png" style="height: 19px; width: 19px"></button>
+                                                                            </form>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <?php } ?>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                    <a class="carousel-control-prev d-flex justify-content-start ms-4" href="#myCarouselXL<?php echo $categoria->getNombre() ?>" role="button" data-slide="prev">
+                                        <span class="carouselPrevIcon" aria-hidden="true"></span>
+                                    </a>
+                                    <a class="carousel-control-next d-flex justify-content-end me-4" href="#myCarouselXL<?php echo $categoria->getNombre() ?>" role="button" data-slide="next">
+                                        <span class="carouselNextIcon" aria-hidden="true"></span>
+                                    </a>
+                                </div>
+                            <?php 
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -177,7 +266,7 @@ include_once "header.php";
                 <div class="caruselLG">
                     <div class="row w-100 mx-0 px-3 d-flex justify-content-center">
                         <div class="container mt-5 p-0">
-                            <div id="myCarousel<?php echo $categoria->getNombre() ?>" class="carousel slide">
+                            <div id="myCarouselLG<?php echo $categoria->getNombre() ?>" class="carousel slide">
                                 <div class="carousel-inner">
                                     <?php $totalProductos = count($productosByCategoria); ?>
                                     <?php $numProductos = ceil($totalProductos / 3); ?>
@@ -236,10 +325,10 @@ include_once "header.php";
                                         </div>
                                     <?php } ?>
                                 </div>
-                                <a class="carousel-control-prev d-flex justify-content-start ms-4" href="#myCarousel<?php echo $categoria->getNombre() ?>" role="button" data-slide="prev">
+                                <a class="carousel-control-prev d-flex justify-content-start ms-4" href="#myCarouselLG<?php echo $categoria->getNombre() ?>" role="button" data-slide="prev">
                                     <span class="carouselPrevIcon" aria-hidden="true"></span>
                                 </a>
-                                <a class="carousel-control-next d-flex justify-content-end me-4" href="#myCarousel<?php echo $categoria->getNombre() ?>" role="button" data-slide="next">
+                                <a class="carousel-control-next d-flex justify-content-end me-4" href="#myCarouselLG<?php echo $categoria->getNombre() ?>" role="button" data-slide="next">
                                     <span class="carouselNextIcon" aria-hidden="true"></span>
                                 </a>
                             </div>
@@ -250,7 +339,7 @@ include_once "header.php";
                 <div class="caruselMD">
                     <div class="row w-100 mx-0 px-3 d-flex justify-content-center">
                         <div class="container mt-5">
-                            <div id="myCarousel<?php echo $categoria->getNombre() ?>" class="carousel slide">
+                            <div id="myCarouselMD<?php echo $categoria->getNombre() ?>" class="carousel slide">
                                 <div class="carousel-inner">
                                     <?php $totalProductos = count($productosByCategoria); ?>
                                     <?php $numProductos = ceil($totalProductos / 2); ?>
@@ -309,10 +398,10 @@ include_once "header.php";
                                         </div>
                                     <?php } ?>
                                 </div>
-                                <a class="carousel-control-prev d-flex justify-content-start ms-4" href="#myCarousel<?php echo $categoria->getNombre() ?>" role="button" data-slide="prev">
+                                <a class="carousel-control-prev d-flex justify-content-start ms-4" href="#myCarouselMD<?php echo $categoria->getNombre() ?>" role="button" data-slide="prev">
                                     <span class="carouselPrevIcon" aria-hidden="true"></span>
                                 </a>
-                                <a class="carousel-control-next d-flex justify-content-end me-4" href="#myCarousel<?php echo $categoria->getNombre() ?>" role="button" data-slide="next">
+                                <a class="carousel-control-next d-flex justify-content-end me-4" href="#myCarouselMD<?php echo $categoria->getNombre() ?>" role="button" data-slide="next">
                                     <span class="carouselNextIcon" aria-hidden="true"></span>
                                 </a>
                             </div>
@@ -323,7 +412,7 @@ include_once "header.php";
                 <div class="caruselSM">
                     <div class="row w-100 mx-0 px-3 d-flex justify-content-center">
                         <div class="container mt-5">
-                            <div id="myCarousel<?php echo $categoria->getNombre() ?>" class="carousel slide">
+                            <div id="myCarouselSM<?php echo $categoria->getNombre() ?>" class="carousel slide">
                                 <div class="carousel-inner">
                                     <?php $totalProductos = count($productosByCategoria); ?>
                                     <?php $numProductos = ceil($totalProductos / 1); ?>
@@ -382,10 +471,10 @@ include_once "header.php";
                                         </div>
                                     <?php } ?>
                                 </div>
-                                <a class="carousel-control-prev d-flex justify-content-start ms-4" href="#myCarousel<?php echo $categoria->getNombre() ?>" role="button" data-slide="prev">
+                                <a class="carousel-control-prev d-flex justify-content-start ms-4" href="#myCarouselSM<?php echo $categoria->getNombre() ?>" role="button" data-slide="prev">
                                     <span class="carouselPrevIcon" aria-hidden="true"></span>
                                 </a>
-                                <a class="carousel-control-next d-flex justify-content-end me-4" href="#myCarousel<?php echo $categoria->getNombre() ?>" role="button" data-slide="next">
+                                <a class="carousel-control-next d-flex justify-content-end me-4" href="#myCarouselSM<?php echo $categoria->getNombre() ?>" role="button" data-slide="next">
                                     <span class="carouselNextIcon" aria-hidden="true"></span>
                                 </a>
                             </div>
@@ -393,8 +482,10 @@ include_once "header.php";
                     </div>
                 </div>
 
-            
-                <button class="my-xl-5 buttonEstilo">Ver Todo</button>
+                <form action="<?= URL . "?controller=producto&action=goCategory" ?>" method="post" class="d-flex justify-content-center">
+                    <input hidden name="categoria" value="<?=$categoria->getId()?>">
+                    <button  type="submit" class="my-xl-5 buttonEstilo">Ver Todo</button>
+                </form>
             
             </div>
         <?php } ?>
@@ -407,6 +498,7 @@ include_once "header.php";
 <?php
 include_once "footer.php";
 ?>
+
 
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 

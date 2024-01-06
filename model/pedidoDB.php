@@ -1,6 +1,7 @@
 <?php
 
     class PedidoDB{
+        
         protected $id;
         protected $id_cliente;
         protected $precio_total;

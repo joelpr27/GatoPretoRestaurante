@@ -15,7 +15,7 @@
                 <label for="password">Contraseña</label>
                 <input id="password" name='password' required>
 
-                <button type="submit" class="buttonEstilo mt-4">Guardar</button>
+                <button type="submit" class="buttonEstilo mt-4">Iniciar Session</button>
 
             </form>
         </div>
@@ -38,7 +38,7 @@
             <label for="password">Contraseña</label>
             <input id="password" name='password' required>
 
-            <button type="submit" class="buttonEstilo  mt-4">Guardar</button>
+            <button type="submit" class="buttonEstilo  mt-4">Crear Cuenta</button>
 
         </form>
 
