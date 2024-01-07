@@ -3,7 +3,8 @@
 
 <head>
     <title>Gato Preto Restaurant</title>
-
+    
+    <!-- Metadatos y enlaces a estilos -->
     <meta charset="UTF-8">
     <meta name="description" content="Descripció web">
     <meta name="keywords" content="Paraules clau">
@@ -20,15 +21,18 @@ include_once "header.php";
 ?>
 
 <body class="d-flex flex-column justify-content-center">
-
+    
+    <!-- Sección de Artículos de Interés con Carousels -->
     <section class="d-flex flex-column justify-content-center align-items-center pb-3">
         <h3>ARTÍCULOS DE INTERÉS</h3>
 
+        <!-- Carrusel con formato para la pantalla xl o formato escritorio -->
         <div class="caruselXL">
             <div class="row w-100 mx-0 px-3 d-flex justify-content-center">
                 <div class="container mt-5">
                     <div id="myCarouselXL" class="carousel slide">
                         <div class="carousel-inner">
+                            <!-- Mostramos todos los productos de interes desde la base de datos -->
                             <?php $totalProductos = count($productos); ?>
                             <?php $numProductos = ceil($totalProductos / 5); ?>
 
@@ -38,6 +42,8 @@ include_once "header.php";
                                         <?php for ($j = 0; $j < 5; $j++) { ?>
                                             <?php $index = $i * 5 + $j; ?>
                                             <?php if ($index < $totalProductos) { ?>
+                                                
+                                                <!-- Creamos una carta para cada producto con toda su informacion -->
                                                 <div class="card border-0 col-xl-2 px-0 py-4 mx-xl-3 p-xl-0">
 
                                                     <img src="desing/img/Productos/<?= $productos[$index]->getImg() ?>" style="background-color: #F7F7F7" class="object-fit-scale">
@@ -307,6 +313,7 @@ include_once "header.php";
 
     </section>
 
+    <!-- Sección de Descubre Nuestros Bocadillos -->
     <section class="row pt-5 d-flex justify-content-center d-flex flex-column justify-content-center align-items-center">
         <div class="info p-0 col-10 d-flex justify-content-center">
             <div class="imagen">
@@ -314,6 +321,7 @@ include_once "header.php";
             <div class="infoBocadillo pt-5">
                 <h4>DESCUBRE NUESTROS BOCADILLOS</h4>
                 <p>Encuentra tu bocadillo ideal o uno que te sorprenda</p>
+                <!-- Boton que te envia a la categoria de bocadillos -->
                 <form action="<?= URL . "?controller=producto&action=goCategory" ?>" method="post" class="d-flex justify-content-center">
                     <input hidden name="categoria" value="2">
                     <button type="submit" class="buttonEstilo">Descubre</button>
@@ -323,9 +331,11 @@ include_once "header.php";
 
     </section>
 
+    <!-- Seccion de categorias-->
     <section class="d-flex flex-column justify-content-center align-items-center">
         <h3>CATEGORIAS</h3>
         
+        <!-- Mostramos todas las categorias en una imagen-->
         <div class="categorias row mx-0 px-5 px-md-0 px-lg-5 px-xl-5 d-flex justify-content-center">
             <?php foreach ($categorias as $categoria) { ?>
                 <div class="categoria col-11 col-md-5 col-lg-3 col-xl-2 px-5 py-4 p-md-0 p-lg-0 p-xl-2 d-flex justify-content-center" >
