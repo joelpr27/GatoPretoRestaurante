@@ -581,6 +581,16 @@ div.tablaCarrito{
     font-weight: bold;
 }
 
+/*Reseñas*/
+
+div.tablaReseña{
+    font-family: Cabin;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: justify;
+}
+
+
 
 /*Botones*/
 

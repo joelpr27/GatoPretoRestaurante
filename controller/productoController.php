@@ -467,6 +467,17 @@ class productoController{
         include_once "views/detallePedido.php";
         include_once 'views/footer.php';
     }
+
+    public function reseñas(){
+        session_start();
+        
+        $reseñas = ProductoDAO::getAllPedidos();
+
+        include_once 'views/header.php';
+        include_once 'views/reseñas.php';
+        include_once 'views/footer.php';
+    
+    }
 }
 
 

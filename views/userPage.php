@@ -96,7 +96,7 @@
                             <p class="p-0 m-0">fecha</p>
                         </div>
                         <div class="col-2 d-flex flex-column align-items-center p-0">
-                            <p cla  ss="p-0 m-0">precio_total</p>
+                            <p cla ss="p-0 m-0">precio_total</p>
                         </div>
                     </div>
                 </div>
@@ -157,10 +157,12 @@
                         </div>
                         <div class="col-1">
                         </div>
+                        <div class="col-1">
+                        </div>
                     </div>
                 </div>
                 <?php
-                    foreach ($pedidos as $pedido) {
+                foreach ($pedidos as $pedido) {
                 ?>
                     <div class="row carrito w-100 d-flex justify-content-around py-2">
                         <div class="col-2 d-flex justify-content-center align-items-center p-0">
@@ -184,6 +186,16 @@
                                 <button type="submit" class="buttonEstilo p-1" style="width: fit-content; height: fit-content;">Detalle</button>
                             </form>
                         </div>
+                        <div class="col-1 p-0 d-flex justify-content-center align-items-center ">
+                            <?php
+                            if ($pedido->getValoracion() == null) {
+                                echo "<form action=\"" . URL . "?controller=producto&action=addReseña\" method=\"post\" class=\"m-0\">";
+                                echo "<input type=\"hidden\" name=\"id\" value=" . $pedido->getId() . ">";
+                                echo "<button type=\"submit\" class=\"buttonEstilo p-1\" style=\"width: fit-content; height: fit-content;\">Valorar</button>";
+                                echo "</form>";
+                            }
+                            ?>
+                        </div>
                     </div>
             <?php
                 }
@@ -197,10 +209,14 @@
             </div>
     </div>
 
+    <div class="d-flex justify-content-center pt-4">
+        <a href="<?= URL . "?controller=producto&action=reseñas" ?>"><button class="me-3 justify-content-center buttonEstilo">Reseñas</button></a>
+    </div>
+
 </section>
 
 <?php
-    if ($user->getRol() == 1) {
+if ($user->getRol() == 1) {
 ?>
     <section>
         <div class="row pt-3 ps-3 mt-4 d-flex justify-content-between">
@@ -218,5 +234,5 @@
         </div>
     </section>
 <?php
-    }
+}
 ?>

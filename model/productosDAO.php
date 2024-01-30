@@ -311,6 +311,25 @@
             return $result; 
         }
 
+        public static function getAllPedidos(){
+            $con = DataBase::connect();
+
+            $stmt = $con->prepare("SELECT * FROM pedidos"); 
+
+            $stmt->execute();
+            $result=$stmt->get_result();
+
+            $con->close();
+
+            $res =[];
+
+            while($pedido = $result->fetch_object('pedidoDB')){
+                $res[] = $pedido;
+            }
+
+            return $res;
+        }
+
         public static function getPedidos($id){
             $con = DataBase::connect();
 
@@ -325,8 +344,8 @@
 
             $res =[];
 
-            while($producto = $result->fetch_object('pedidoDB')){
-                $res[] = $producto;
+            while($pedido = $result->fetch_object('pedidoDB')){
+                $res[] = $pedido;
             }
 
             return $res;
@@ -369,7 +388,6 @@
 
             return $res;
         }
-
         
         
     }

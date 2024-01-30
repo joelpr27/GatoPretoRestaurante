@@ -6,6 +6,8 @@
         protected $id_cliente;
         protected $precio_total;
         protected $fecha;
+        protected $valoracion;
+        protected $reseña;
 
 
         public function __construct(){
@@ -66,5 +68,32 @@
 
                 return $this;
         }
+
+        public function getValoracion()
+        {
+                return $this->valoracion;
+        }
+
+
+        public function setValoracion($valoracion)
+        {
+                $this->valoracion = $valoracion;
+
+                return $this;
+        }
+
+        
+        public function getReseña()
+        {
+                return $this->reseña;
+        }
+
+        public function setReseña($reseña)
+        {
+                $this->reseña = $reseña;
+
+                return $this;
+        }
+
     }
 ?>
