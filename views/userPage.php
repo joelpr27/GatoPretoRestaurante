@@ -157,8 +157,6 @@
                         </div>
                         <div class="col-1">
                         </div>
-                        <div class="col-1">
-                        </div>
                     </div>
                 </div>
                 <?php
@@ -185,16 +183,6 @@
                                 <input hidden name="id" value="<?= $pedido->getId() ?>">
                                 <button type="submit" class="buttonEstilo p-1" style="width: fit-content; height: fit-content;">Detalle</button>
                             </form>
-                        </div>
-                        <div class="col-1 p-0 d-flex justify-content-center align-items-center ">
-                            <?php
-                            if ($pedido->getValoracion() == null) {
-                                echo "<form action=\"" . URL . "?controller=producto&action=addReseña\" method=\"post\" class=\"m-0\">";
-                                echo "<input type=\"hidden\" name=\"id\" value=" . $pedido->getId() . ">";
-                                echo "<button type=\"submit\" class=\"buttonEstilo p-1\" style=\"width: fit-content; height: fit-content;\">Valorar</button>";
-                                echo "</form>";
-                            }
-                            ?>
                         </div>
                     </div>
             <?php
@@ -236,3 +224,8 @@ if ($user->getRol() == 1) {
 <?php
 }
 ?>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

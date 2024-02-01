@@ -2,15 +2,31 @@
 
     class DetallePedidoDB extends PedidoDB{
 
+        protected $id_pedido;
         protected $id_producto;
         protected $cantidad_producto;
         protected $precio_producto;
         protected $tiempo_total;
+        protected $valoracion;
+        protected $reseña;
+
 
         
         public function __construct(){
         }
 
+        
+        public function getId_pedido()
+        {
+                return $this->id_pedido;
+        }
+
+        public function setId_pedido($id_pedido)
+        {
+                $this->id_pedido = $id_pedido;
+
+                return $this;
+        }
 
         public function getId_producto()
         {
@@ -66,5 +82,34 @@
 
                 return $this;
         }
+
+        public function getValoracion()
+        {
+                return $this->valoracion;
+        }
+
+        
+        public function setValoracion($valoracion)
+        {
+                $this->valoracion = $valoracion;
+
+                return $this;
+        }
+
+        public function getReseña()
+        {
+                return $this->reseña;
+        }
+
+        
+        public function setReseña($reseña)
+        {
+                $this->reseña = $reseña;
+
+                return $this;
+        }
+
+         
+
     }
 ?>

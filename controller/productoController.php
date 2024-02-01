@@ -1,12 +1,9 @@
 <?php
 include_once 'model/productosDAO.php';
+include_once 'model/reseñasDAO.php';
 include_once 'model/pedido.php';
 include_once 'model/favorito.php';
 include_once 'model/clientes.php';
-
-
-
-
 
 class productoController{
 
@@ -455,6 +452,7 @@ class productoController{
         $id = $_POST['id'];
 
         $pedidos = ProductoDAO::getDetallePedidos($id);
+        $reseña = ProductoDAO::getUltimoPedido($id);
 
         $productos = [];
 
@@ -478,6 +476,23 @@ class productoController{
         include_once 'views/footer.php';
     
     }
+
+    public function addReseña(){
+
+        session_start();
+
+        $id = $_POST['id'];
+        $valoracion = $_POST['valoracion'];
+        $reseña = $_POST['reseña'];
+     
+        $val = ProductoDAO::addReseña($valoracion,$reseña,$id);
+
+        include_once 'views/header.php';
+        include_once "views/reseñas.php";
+        include_once 'views/footer.php';
+    }
+
+
 }
 
 

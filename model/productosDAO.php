@@ -372,7 +372,7 @@
             $con = DataBase::connect();
 
             $stmt = $con->prepare("SELECT * FROM pedido_producto WHERE `id_pedido` = ?"); 
-            $stmt->bind_param("i",$id);
+            $stmt->bind_param("i",$id);     
 
 
             $stmt->execute();
@@ -388,8 +388,6 @@
 
             return $res;
         }
-        
-        
     }
 
 ?>

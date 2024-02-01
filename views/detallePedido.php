@@ -10,8 +10,6 @@
         <div class="col-5 d-flex justify-content-end">
             <a href="<?= URL . "?controller=producto&action=userPage" ?>"><button class="me-3 buttonEstilo">Volver</button></a>
         </div>
-
-
     </div>
 
 
@@ -74,6 +72,7 @@
                     <div class="col-2 d-flex justify-content-center align-items-center p-0 ">
                         <div class="d-flex">
                             <p style="width: fit-content;"><?= $pedido->getTiempo_total() ?>min</p>
+                            
                         </div>
                     </div>
                 </div>
@@ -83,5 +82,119 @@
             }
             ?>
         </div>
+
+        <div class="w-100 p-0 pt-3 mb-3 px-3 d-flex flex-column">
+            <h5>Reseña y valoracion</h5>
+            <div class="row mt-4 w-100 d-flex justify-content-center">
+                <?php
+                if ($reseña->getValoracion() == null) {
+                    echo "<div class=\"col-5 p-0 d-flex justify-content-center\">";
+                    echo "<form  method=\"post\" class=\"w-100 m-0 d-flex flex-column align-items-center\">";
+                    echo "<input type=\"hidden\" id=\"id_ped\" name=\"id\" value=" . $pedido->getId_pedido() . ">";
+
+                    echo "<div class=\"d-flex align-self-start\">";
+
+                    echo "<div onclick=\"valoracion(1)\" >";
+                    echo "<img src=\"desing/img/Iconos/star-empty.svg\" id=\"estrellaVal1\" style=\"height:15px\" >";
+                    echo "</div>";
+
+                    echo "<div onclick=\"valoracion(2)\" >";
+                    echo "<img src=\"desing/img/Iconos/star-empty.svg\" id=\"estrellaVal2\" style=\"height:15px\" >";
+                    echo "</div>";
+                    
+                    echo "<div onclick=\"valoracion(3)\" >";
+                    echo "<img src=\"desing/img/Iconos/star-empty.svg\" id=\"estrellaVal3\" style=\"height:15px\" >";
+                    echo "</div>";
+                    
+                    echo "<div onclick=\"valoracion(4)\" >";
+                    echo "<img src=\"desing/img/Iconos/star-empty.svg\" id=\"estrellaVal4\" style=\"height:15px\" >";
+                    echo "</div>";
+                    
+                    echo "<div onclick=\"valoracion(5)\" >";
+                    echo "<img src=\"desing/img/Iconos/star-empty.svg\" id=\"estrellaVal5\" style=\"height:15px\" >";
+                    echo "</div>";
+
+                    echo "<input type=\"hidden\" name=\"valoracion\" id=\"val\">";
+
+                    echo "</div>";
+
+                    echo "<input name=\"reseña\" id=\"res\" class=\"mt-2 w-100\" required>";
+
+                    echo "<div onclick=\"addReseña()\">click</div>";
+                    echo "<button type=\"submit\" onclick=\"addReseña()\" class=\"buttonEstilo p-1 mt-2\" style=\"width: fit-content; height: fit-content;\">Añadir Reseña</button>";
+                    echo "</div>";
+
+                } else {
+                    echo "<div class=\"col-8 p-0 d-flex justify-content-center flex-column\">";
+                    echo "<div class=\"mb-2\">";
+                    switch ($reseña->getValoracion()) {
+                        case 0:
+                            echo "<img src=\"desing/img/Iconos/star-empty.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-empty.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-empty.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-empty.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-empty.svg\" style=\"height:12px\" >";
+                            break;
+                        case 1:
+                            echo "<img src=\"desing/img/Iconos/star-full.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-empty.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-empty.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-empty.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-empty.svg\" style=\"height:12px\" >";
+                            break;
+
+                        case 2:
+                            echo "<img src=\"desing/img/Iconos/star-full.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-full.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-empty.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-empty.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-empty.svg\" style=\"height:12px\" >";
+                            break;
+
+                        case 3:
+                            echo "<img src=\"desing/img/Iconos/star-full.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-full.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-full.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-empty.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-empty.svg\" style=\"height:12px\" >";
+
+
+                            break;
+                        case 4:
+                            echo "<img src=\"desing/img/Iconos/star-full.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-full.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-full.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-full.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-empty.svg\" style=\"height:12px\" >";
+                            break;
+                        case 5:
+                            echo "<img src=\"desing/img/Iconos/star-full.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-full.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-full.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-full.svg\" style=\"height:12px\" >";
+                            echo "<img src=\"desing/img/Iconos/star-full.svg\" style=\"height:12px\" >";
+                            break;
+
+                        default:
+                            break;
+                    }
+                    echo "</div>";
+                    echo "<p>" . $reseña->getReseña() . "</p>";
+                    echo "</div>";
+                }
+                ?>
+            </div>
+
+        </div>
+
     </div>
+
 </section>
+
+
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/reseñas.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
