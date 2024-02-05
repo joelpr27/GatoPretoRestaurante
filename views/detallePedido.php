@@ -1,6 +1,6 @@
 <html>
-
 <?php include_once "header.php"; ?>
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css">
 
 <section>
     <div class="row pt-3 mb-3 ps-3 d-flex justify-content-between">
@@ -85,11 +85,11 @@
 
         <div class="w-100 p-0 pt-3 mb-3 px-3 d-flex flex-column">
             <h5>Reseña y valoracion</h5>
-            <div class="row mt-4 w-100 d-flex justify-content-center">
+            <div id="divRes" class="row mt-4 w-100 d-flex justify-content-center">
                 <?php
                 if ($reseña->getValoracion() == null) {
                     echo "<div class=\"col-5 p-0 d-flex justify-content-center\">";
-                    echo "<form  method=\"post\" class=\"w-100 m-0 d-flex flex-column align-items-center\">";
+                    echo "<div class=\"w-100 m-0 d-flex flex-column align-items-center\">";
                     echo "<input type=\"hidden\" id=\"id_ped\" name=\"id\" value=" . $pedido->getId_pedido() . ">";
 
                     echo "<div class=\"d-flex align-self-start\">";
@@ -120,9 +120,11 @@
 
                     echo "<input name=\"reseña\" id=\"res\" class=\"mt-2 w-100\" required>";
 
-                    echo "<div onclick=\"addReseña()\">click</div>";
-                    echo "<button type=\"submit\" onclick=\"addReseña()\" class=\"buttonEstilo p-1 mt-2\" style=\"width: fit-content; height: fit-content;\">Añadir Reseña</button>";
+                    echo "<button onclick=\"addReseña()\" class=\"buttonEstilo p-1 mt-2\" style=\"width: fit-content; height: fit-content;\">Añadir Reseña</button>";
+                    
                     echo "</div>";
+                    echo "</div>";
+
 
                 } else {
                     echo "<div class=\"col-8 p-0 d-flex justify-content-center flex-column\">";
@@ -192,8 +194,9 @@
 </section>
 
 
-<script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/reseñas.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/notie"></script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

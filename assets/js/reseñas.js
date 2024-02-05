@@ -67,28 +67,62 @@ function addReseña(){
     let valoracion = document.getElementById('val').value;
     let reseña = document.getElementById('res').value;
 
-    let reseñaCompleta = {
-        id_pedido: id_pedido,
-        valoracion: valoracion,
-        reseña: reseña
+    if((valoracion != "") && (reseña != "")){
+        let reseñaCompleta = {
+            id_pedido: id_pedido,
+            valoracion: valoracion,
+            reseña: reseña
+        }
+    
+        let reseñaJSON = JSON.stringify(reseñaCompleta);
+    
+        console.log(reseñaJSON);
+    
+        fetch("http://proyectoperez.com/gato-preto/?controller=API&action=addReseñas", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: reseñaJSON
+        })
+        .then(response => response.text())
+        .then(data => {
+            
+            console.log(data);
+    
+            notie.alert({
+                type: '1',
+                text: 'Reseña añadida correctamente',
+                time: 5
+            });
+    
+            reseñaAñadida();
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    }else{
+        notie.alert({
+            type: '3',
+            text: 'Te faltan campos por rellenar',
+            time: 5
+        });
     }
+}
 
-    let reseñaJSON = JSON.stringify(reseñaCompleta);
+function reseñaAñadida() {
 
-    console.log(reseñaJSON);
+    const div = document.getElementById('divRes');
 
-    fetch("http://proyectoperez.com/gato-preto/?controller=API&action=api", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: reseñaJSON
-    })
-    .then(response => {
-        return response.json();
-    })
-    .catch(error => {
-        console.error(error);
-    });
+    console.log(div);
 
+    div.innerHTML = "<div class=\"col-8 p-0 d-flex justify-content-center align-items-center\" onclick=\"reload()\"> <h6>Haz click para ver la reseña</  h6> </div>"
+
+    console.log(div);
+
+}
+
+function reload(){
+    location.reload();
 }
