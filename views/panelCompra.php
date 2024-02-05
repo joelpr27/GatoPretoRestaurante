@@ -119,10 +119,17 @@
                         </div>
                     </div>
 
+                    <div class="IVA d-flex justify-content-between">
+                            <p>Tienes </p>
+                            <p style="font-weight: normal;"><?= CalculadoraPrecios::calculadoraPrecioIVA($_SESSION['carrito']) ?> €</p>
+                    </div>
+
 
                 </div>
+                <button class="w-100 py-2 px-4 buttonEstilo2" onclick="añadirPuntos(<?= $id_cliente?> ,<?= CalculadoraPrecios::calculadoraPrecioFinal($_SESSION['carrito']) ?>)">Prueba</button>
+
                 <form action="<?= URL . "?controller=producto&action=createPedido" ?>" method="post" class="mt-4">                    
-                    <button class="w-100 py-2 px-4 buttonEstilo2" type="submit">CONTINUAR CON EL PEDIDO</button>
+                    <button class="w-100 py-2 px-4 buttonEstilo2" type="submit" onclick="añadirPuntos(<?= $id_cliente?> ,<?= CalculadoraPrecios::calculadoraPrecioFinal($_SESSION['carrito']) ?>)">CONTINUAR CON EL PEDIDO</button>
                 </form>
             </div>
         </div>
@@ -144,6 +151,8 @@
 </section>
 
 <script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/puntos.js"></script>
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

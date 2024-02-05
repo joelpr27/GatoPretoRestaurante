@@ -32,6 +32,9 @@
                     <div class="col-2 d-flex flex-column align-items-center p-0">
                         <p class="p-0 m-0">Contraseña</p>
                     </div>
+                    <div class="col-2 d-flex flex-column align-items-center p-0">
+                        <p class="p-0 m-0">Puntos</p>
+                    </div>
                     <div class="col-1">
                     </div>
                 </div>
@@ -55,6 +58,11 @@
                 <div class="col-2 d-flex justify-content-center align-items-center p-0 ">
                     <div class="d-flex">
                         <p style="width: fit-content;">*****</p>
+                    </div>
+                </div>
+                <div class="col-2 d-flex justify-content-center align-items-center p-0 ">
+                    <div class="d-flex">
+                        <p style="width: fit-content;"><?= $user->getPuntos() ?></p>
                     </div>
                 </div>
                 <div class="col-1 p-0 d-flex justify-content-center align-items-center ">

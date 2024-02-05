@@ -8,6 +8,8 @@
         protected $correo; 
         protected $contraseña;
         protected $rol;
+        protected $puntos;
+
 
 
         public function __construct(){
@@ -89,6 +91,20 @@
         public function setRol($rol)
         {
                 $this->rol = $rol;
+
+                return $this;
+        }
+
+ 
+        public function getPuntos()
+        {
+                return $this->puntos;
+        }
+
+ 
+        public function setPuntos($puntos)
+        {
+                $this->puntos = $puntos;
 
                 return $this;
         }

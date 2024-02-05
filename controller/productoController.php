@@ -1,9 +1,12 @@
 <?php
 include_once 'model/productosDAO.php';
 include_once 'model/resenasDAO.php';
+include_once 'model/pedidosDAO.php';
+
 include_once 'model/pedido.php';
 include_once 'model/favorito.php';
 include_once 'model/clientes.php';
+
 
 class productoController{
 
@@ -50,6 +53,9 @@ class productoController{
 
     public function compra(){
         session_start();
+
+        $id_cliente = $_SESSION['usuario'][0]->getId();;
+        
         if(isset($_POST['Add'])){
             $pedido = $_SESSION['carrito'][$_POST['Add']];
             $pedido->setCantidad($pedido->getCantidad()+1);
@@ -355,12 +361,12 @@ class productoController{
 
         $id = $_SESSION['usuario'][0]->getId();
      
-        $user = ProductoDAO::getUserById($id);
+        $user = UsuariosDAO::getUserById($id);
 
-        $pedidos = ProductoDAO::getPedidos($id);
+        $pedidos = PedidosDAO::getPedidos($id);
 
         if(isset($_COOKIE['ultimoPedido'])){
-            $ultimoPedido = ProductoDAO::getUltimoPedido($_COOKIE['ultimoPedido']);
+            $ultimoPedido = PedidosDAO::getUltimoPedidoCookies($_COOKIE['ultimoPedido']);
         }
         
         include_once 'views/header.php';
@@ -386,7 +392,7 @@ class productoController{
 
         $id = $_POST['id'];
 
-        $user = ProductoDAO::getUserById($id);
+        $user = UsuariosDAO::getUserById($id);
 
         include_once 'views/header.php';
         include_once "views/editUser.php";
@@ -402,7 +408,7 @@ class productoController{
         $contraseña = $_POST['contraseña'];
 
     
-        $cliente = ProductoDAO::updateUser($id,$nombre,$apellido,$contraseña);
+        $cliente = UsuariosDAO::updateUser($id,$nombre,$apellido,$contraseña);
 
 
         // header("Location:".URL . "?controller=producto&action=userPage");
@@ -418,7 +424,7 @@ class productoController{
         $precioTotal = CalculadoraPrecios::calculadoraPrecioFinal($_SESSION['carrito']);
 
 
-        $pedidoID = ProductoDAO::addPedido($id_cliente, $precioTotal);
+        $pedidoID = PedidosDAO::addPedido($id_cliente, $precioTotal);
         
 
         foreach ($_SESSION['carrito'] as $producto) {
@@ -434,7 +440,7 @@ class productoController{
                 $precio = $producto->getProducto()->getPrecio();
             }
 
-            $pedidoProductos = ProductoDAO::addPedidoProducto($pedidoID,$id_producto,$cantidad,$tiempo_P_Total,$precio);
+            $pedidoProductos = PedidosDAO::addPedidoProducto($pedidoID,$id_producto,$cantidad,$tiempo_P_Total,$precio);
             
         }
 
@@ -451,8 +457,9 @@ class productoController{
 
         $id = $_POST['id'];
 
-        $pedidos = ProductoDAO::getDetallePedidos($id);
-        $reseña = ProductoDAO::getUltimoPedido($id);
+        $pedidos = PedidosDAO::getDetallePedidos($id);
+        $puntos = PedidosDAO::getPedidtoById($id);
+        $reseña = PedidosDAO::getUltimoPedidoCookies($id);
 
         $productos = [];
 
@@ -469,7 +476,7 @@ class productoController{
     public function reseñas(){
         session_start();
         
-        $reseñas = ProductoDAO::getAllPedidos();
+        $reseñas = PedidosDAO::getAllPedidos();
 
         include_once 'views/header.php';
         include_once 'views/reseñas.php';

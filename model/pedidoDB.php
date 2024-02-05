@@ -6,6 +6,7 @@
         protected $id_cliente;
         protected $precio_total;
         protected $fecha;
+        protected $puntos;
         protected $valoracion;
         protected $reseña;
 
@@ -51,6 +52,19 @@
         public function setPrecio_total($precio_total)
         {
                 $this->precio_total = $precio_total;
+
+                return $this;
+        }
+
+        public function getPuntos()
+        {
+                return $this->puntos;
+        }
+
+
+        public function setPuntos($puntos)
+        {
+                $this->puntos = $puntos;
 
                 return $this;
         }

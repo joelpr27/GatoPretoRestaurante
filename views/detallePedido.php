@@ -1,6 +1,5 @@
 <html>
 <?php include_once "header.php"; ?>
-<link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css">
 
 <section>
     <div class="row pt-3 mb-3 ps-3 d-flex justify-content-between">
@@ -15,7 +14,7 @@
 
     <div class="row m-0 w-100 d-flex justify-content-center">
         <div class="col-8 p-0 d-flex flex-column">
-            <div class="w-100 d-flex justify-content-between py-2">
+            <div class="w-100 d-flex justify-content-around py-2">
                 <div class="row tablaCarrito w-100 d-flex justify-content-around">
                     <div class="col-2 d-flex flex-column align-items-center p-0">
                         <p class="p-0 m-0">Imagen</p>
@@ -64,7 +63,7 @@
                             <p style="width: fit-content;"><?= $pedido->getCantidad_producto() ?></p>
                         </div>
                     </div>
-                    <div class="col-2 d-flex justify-content-center align-items-center p-0 ">
+                    <div class="col-1 d-flex justify-content-center align-items-center p-0 ">
                         <div class="d-flex">
                             <p style="width: fit-content;"><?= $pedido->getPrecio_producto() ?>€</p>
                         </div>
@@ -72,7 +71,6 @@
                     <div class="col-2 d-flex justify-content-center align-items-center p-0 ">
                         <div class="d-flex">
                             <p style="width: fit-content;"><?= $pedido->getTiempo_total() ?>min</p>
-                            
                         </div>
                     </div>
                 </div>
@@ -81,6 +79,14 @@
                 $i++;
             }
             ?>
+        </div>
+        <div class="col-1 d-flex flex-column justify-content-center align-items-center p-0 ">
+            <div class="d-flex tablaCarrito">
+                <p style="width: fit-content;">Puntos</p>
+            </div>
+            <div class="d-flex">
+                <p style="width: fit-content;"><?= $puntos->getPuntos() ?></p>
+            </div>
         </div>
 
         <div class="w-100 p-0 pt-3 mb-3 px-3 d-flex flex-column">
@@ -101,15 +107,15 @@
                     echo "<div onclick=\"valoracion(2)\" >";
                     echo "<img src=\"desing/img/Iconos/star-empty.svg\" id=\"estrellaVal2\" style=\"height:15px\" >";
                     echo "</div>";
-                    
+
                     echo "<div onclick=\"valoracion(3)\" >";
                     echo "<img src=\"desing/img/Iconos/star-empty.svg\" id=\"estrellaVal3\" style=\"height:15px\" >";
                     echo "</div>";
-                    
+
                     echo "<div onclick=\"valoracion(4)\" >";
                     echo "<img src=\"desing/img/Iconos/star-empty.svg\" id=\"estrellaVal4\" style=\"height:15px\" >";
                     echo "</div>";
-                    
+
                     echo "<div onclick=\"valoracion(5)\" >";
                     echo "<img src=\"desing/img/Iconos/star-empty.svg\" id=\"estrellaVal5\" style=\"height:15px\" >";
                     echo "</div>";
@@ -121,11 +127,9 @@
                     echo "<input name=\"reseña\" id=\"res\" class=\"mt-2 w-100\" required>";
 
                     echo "<button onclick=\"addReseña()\" class=\"buttonEstilo p-1 mt-2\" style=\"width: fit-content; height: fit-content;\">Añadir Reseña</button>";
-                    
+
                     echo "</div>";
                     echo "</div>";
-
-
                 } else {
                     echo "<div class=\"col-8 p-0 d-flex justify-content-center flex-column\">";
                     echo "<div class=\"mb-2\">";
