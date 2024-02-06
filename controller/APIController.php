@@ -79,7 +79,7 @@ class APIController
             $ultimoPedido = PedidosDAO::getUltimoPedido($id_cliente);
             $id_ultimoPedido = $ultimoPedido->getId();
 
-            $addPuntosPedido = UsuariosDAO::addPointsPedido($puntos, $id_ultimoPedido);
+            $addPuntosPedido = UsuariosDAO::modifyPointsPedido($puntos, $id_ultimoPedido);
 
             $response2 = array('success' => true, 'message' => $puntos.' puntos agregados correctamente al pedido');
 
@@ -88,6 +88,36 @@ class APIController
         } else {
 
             $response = array('success' => false, 'message' => 'Error al añadir los puntos');
+            echo json_encode($response);
+        
+        }
+    }
+
+    public function usePoints(){
+        
+        $inputJSON = file_get_contents('php://input');
+        $data = json_decode($inputJSON, TRUE);
+        
+        if(isset($data['id_cliente']) && isset($data['puntos'])) {
+
+            $id_cliente = $data['id_cliente'];
+            $puntos = $data['puntos'];
+            
+            $puntosCliente = UsuariosDAO::getPoints($id_cliente);
+
+            $puntosAcuales = $puntosCliente->getPuntos();
+            $puntosNuevos = $puntosAcuales -= $puntos;
+
+            $deletePuntosCliente = UsuariosDAO::addPoints($puntosNuevos, $id_cliente);
+    
+            $response = array('success' => true, 'message' => $puntos.' puntos borrados correctamente al usuario', 'PuntosTotales' => $puntosNuevos);
+            
+            echo json_encode($response);
+
+
+        } else {
+
+            $response = array('success' => false, 'message' => 'Error al borrar los puntos');
             echo json_encode($response);
         
         }

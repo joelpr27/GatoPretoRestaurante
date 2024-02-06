@@ -2,7 +2,6 @@
 include_once 'model/productosDAO.php';
 include_once 'model/resenasDAO.php';
 include_once 'model/pedidosDAO.php';
-
 include_once 'model/pedido.php';
 include_once 'model/favorito.php';
 include_once 'model/clientes.php';
@@ -54,8 +53,10 @@ class productoController{
     public function compra(){
         session_start();
 
-        $id_cliente = $_SESSION['usuario'][0]->getId();;
-        
+        $id_cliente = $_SESSION['usuario'][0]->getId();
+
+        $user = UsuariosDAO::getUserById($id_cliente);
+
         if(isset($_POST['Add'])){
             $pedido = $_SESSION['carrito'][$_POST['Add']];
             $pedido->setCantidad($pedido->getCantidad()+1);
@@ -447,7 +448,6 @@ class productoController{
         unset($_SESSION['carrito']);
 
         setcookie('ultimoPedido', $pedidoID , time()+3600);
-
 
         header("Location:".URL . "?controller=producto");
     }

@@ -67,7 +67,7 @@
 
         }
 
-        public static function addPointsPedido($puntos,$id){
+        public static function modifyPointsPedido($puntos,$id){
             $con = DataBase::connect();
 
             $stmt = $con->prepare("UPDATE pedidos SET puntos = ? WHERE id = ?");

@@ -29,64 +29,66 @@
                 $pos = 0;
                 foreach ($_SESSION['carrito'] as $pedido) {
                 ?>
-                        <div class="row carrito w-100 d-flex py-2 align-items-center">
-                            <div class="col-5 ">
-                                <div class="d-flex align-items-center">
-                                    <img src="desing/img/Productos/<?= $pedido->getProducto()->getImg() ?>" class="object-fit-scale" style="background-color: #F7F7F7; max-width:105px;">
+                    <div class="row carrito w-100 d-flex py-2 align-items-center">
+                        <div class="col-5 ">
+                            <div class="d-flex align-items-center">
+                                <img src="desing/img/Productos/<?= $pedido->getProducto()->getImg() ?>" class="object-fit-scale" style="background-color: #F7F7F7; max-width:105px;">
 
-                                    <p class="tipo ms-4"><?= $pedido->getProducto()->getNombre() ?></p>
+                                <p class="tipo ms-4"><?= $pedido->getProducto()->getNombre() ?></p>
 
-                                </div>
                             </div>
-
-                            <div class="col-2 text-center d-flex justify-content-center ">
-
-                                <?php
-                                if ($pedido->getProducto()->getDescuento() != null) {
-                                    echo "<p class=\"tipo align-self-start me-2 mb-0\" style=\" text-decoration: line-through;\">" . $pedido->getProducto()->getPrecio() . " € </p>";
-                                    echo "<p class=\"tipo align-self-start mb-0\" style=\" color: var(--bg-descuento);\">" . $pedido->getProducto()->getPrecioDescuento() . " € </p>";
-                                } else {
-                                    echo "<p class=\"tipo align-self-start ms-1 mb-0\">" . $pedido->getProducto()->getPrecio() . " € </p>";
-                                }
-                                ?>
-                            </div>
-
-                            <div class="col-2 text-center d-flex justify-content-center p-0">
-                                <form action="<?= URL . "?controller=producto&action=compra" ?>" method="post" class="cantidadCarrito d-flex justify-content-center align-items-center m-0" style="height: fit-content;">
-                                    <button type="submit" name="Del" value="<?= $pos ?>" class="px-2">-</button>
-
-                                    <p class="tipo m-1"><?= $pedido->getCantidad() ?></p>
-
-                                    <button type="submit" name="Add" value="<?= $pos ?>" class="px-2">+</button>
-                                </form>
-                            </div>
-
-                            <div class="col-2 text-center d-flex justify-content-center">
-                                <?php
-                                if ($pedido->getProducto()->getDescuento() == null) {
-                                    echo "<p class=\"tipo\">" . $pedido->getPrecioTotal()  . "€ </p>";
-                                } else {
-                                    echo "<p class=\"tipo\">" . $pedido->getPrecioTotalConDescuento()  . "€ </p>";
-                                }
-                                ?>
-                            </div>
-
-                            <div class="col-1 text-center d-flex justify-content-center align-items-center p-0">
-                                <form action="<?= URL . "?controller=producto&action=deleteCart" ?>" method="post" class="m-0">
-                                    <input hidden name="id" value="<?= $pedido->getProducto()->getId() ?>">
-                                    <button type="submit" class="eliminarCarrito p-0 m-0" name="pos" value="<?= $pos ?>"><img src="desing/img/Iconos/cross.svg" style="max-width: 20px;"></button>
-                                </form>
-                            </div>
-
                         </div>
+
+                        <div class="col-2 text-center d-flex justify-content-center ">
+
+                            <?php
+                            if ($pedido->getProducto()->getDescuento() != null) {
+                                echo "<p class=\"tipo align-self-start me-2 mb-0\" style=\" text-decoration: line-through;\">" . $pedido->getProducto()->getPrecio() . " € </p>";
+                                echo "<p class=\"tipo align-self-start mb-0\" style=\" color: var(--bg-descuento);\">" . $pedido->getProducto()->getPrecioDescuento() . " € </p>";
+                            } else {
+                                echo "<p class=\"tipo align-self-start ms-1 mb-0\">" . $pedido->getProducto()->getPrecio() . " € </p>";
+                            }
+                            ?>
+                        </div>
+
+                        <div class="col-2 text-center d-flex justify-content-center p-0">
+                            <form action="<?= URL . "?controller=producto&action=compra" ?>" method="post" class="cantidadCarrito d-flex justify-content-center align-items-center m-0" style="height: fit-content;">
+                                <button type="submit" name="Del" value="<?= $pos ?>" class="px-2">-</button>
+
+                                <p class="tipo m-1"><?= $pedido->getCantidad() ?></p>
+
+                                <button type="submit" name="Add" value="<?= $pos ?>" class="px-2">+</button>
+                            </form>
+                        </div>
+
+                        <div class="col-2 text-center d-flex justify-content-center">
+                            <?php
+                            if ($pedido->getProducto()->getDescuento() == null) {
+                                echo "<p class=\"tipo\">" . $pedido->getPrecioTotal()  . "€ </p>";
+                            } else {
+                                echo "<p class=\"tipo\">" . $pedido->getPrecioTotalConDescuento()  . "€ </p>";
+                            }
+                            ?>
+                        </div>
+
+                        <div class="col-1 text-center d-flex justify-content-center align-items-center p-0">
+                            <form action="<?= URL . "?controller=producto&action=deleteCart" ?>" method="post" class="m-0">
+                                <input hidden name="id" value="<?= $pedido->getProducto()->getId() ?>">
+                                <button type="submit" class="eliminarCarrito p-0 m-0" name="pos" value="<?= $pos ?>"><img src="desing/img/Iconos/cross.svg" style="max-width: 20px;"></button>
+                            </form>
+                        </div>
+
+                    </div>
                 <?php
                     $pos++;
                 }
                 ?>
                 <a href="<?= URL . "?controller=producto" ?>" class="mt-3" style="text-decoration: none; width:fit-content;">
                     <button class="py-2 px-3 buttonEstiloAtras d-flex justify-content-between align-items-center">
-                        <p class="ps-1" style="font-size: 13px; text-decoration: none;"><</p>
-                        <p>ATRÁS</p> 
+                        <p class="ps-1" style="font-size: 13px; text-decoration: none;">
+                            << 
+                        </p>
+                        <p>ATRÁS</p>
                     </button>
                 </a>
 
@@ -119,17 +121,31 @@
                         </div>
                     </div>
 
-                    <div class="IVA d-flex justify-content-between">
-                            <p>Tienes </p>
-                            <p style="font-weight: normal;"><?= CalculadoraPrecios::calculadoraPrecioIVA($_SESSION['carrito']) ?> €</p>
+                    <div class="p-4 d-flex flex-column justify-content-between">
+                        <div class="d-flex justify-content-between">
+                            <p>PUNTOS TOTALES</p>
+                            <div class="d-flex">
+                                <p id="puntosAcutales" style="font-weight: normal; font-style: italic;"><?php if($user->getPuntos() == 0){ echo""; }else{ echo $user->getPuntos(); } ?></p>
+                                <p class="ps-1" style="font-weight: normal; font-style: italic;"><?php if($user->getPuntos() == 0){ echo"No tienes puntos"; }else{ echo "Puntos"; } ?></p>
+                            </div>
+                        </div>
+                        <div class="IVA d-flex justify-content-between">
+                            <p>Cuantos puntos quieres usar?</p>
+                            <div>
+                                <input id="puntos" type="range" value="0">
+                                <p id="puntosUtilizados" style="font-weight: normal; font-style: italic; text-align: right;"><?php if($user->getPuntos() == 0){ echo"No tienes puntos"; }else{ echo "Puntos utilizados: 0"; } ?></p>
+                            </div>
+                            
+                        </div>
                     </div>
 
 
-                </div>
-                <button class="w-100 py-2 px-4 buttonEstilo2" onclick="añadirPuntos(<?= $id_cliente?> ,<?= CalculadoraPrecios::calculadoraPrecioFinal($_SESSION['carrito']) ?>)">Prueba</button>
 
-                <form action="<?= URL . "?controller=producto&action=createPedido" ?>" method="post" class="mt-4">                    
-                    <button class="w-100 py-2 px-4 buttonEstilo2" type="submit" onclick="añadirPuntos(<?= $id_cliente?> ,<?= CalculadoraPrecios::calculadoraPrecioFinal($_SESSION['carrito']) ?>)">CONTINUAR CON EL PEDIDO</button>
+                </div>
+                <!-- <button class="w-100 py-2 px-4 buttonEstilo2" onclick="añadirPuntos(<?= $id_cliente ?> ,<?= CalculadoraPrecios::calculadoraPrecioFinal($_SESSION['carrito']) ?>)">Prueba</button> -->
+
+                <form action="<?= URL . "?controller=producto&action=createPedido" ?>" method="post" class="mt-4">
+                    <button class="w-100 py-2 px-4 buttonEstilo2" type="submit" onclick="añadirPuntos(<?= $id_cliente ?> ,<?= CalculadoraPrecios::calculadoraPrecioFinal($_SESSION['carrito']) ?>)">CONTINUAR CON EL PEDIDO</button>
                 </form>
             </div>
         </div>
@@ -157,4 +173,5 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 </html>
