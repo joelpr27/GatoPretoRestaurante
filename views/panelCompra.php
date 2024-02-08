@@ -107,13 +107,19 @@
                             <p>DESCUENTO</p>
                             <p style="font-weight: normal;"><?= CalculadoraPrecios::calculadoraDescuentoFinal($_SESSION['carrito']) ?> €</p>
                         </div>
+                        <div id="descuentoPuntos" class="pb-2 d-flex justify-content-between" style="color: var(--bg-descuento);">
+                        </div>
                         <div class="pb-2 d-flex justify-content-between">
                             <p>ENVIO</p>
                             <p style="font-weight: normal; font-style: italic;">AÚN NO SE HA CALCULADO </p>
                         </div>
+                        <div class="pb-2 d-flex justify-content-between">
+                            <p>Con este pedido ganaras</p>
+                            <p id="puntosGanados" style="font-weight: normal; font-style: italic;"></p>
+                        </div>
                         <div class="pt-4 precioTotal d-flex justify-content-between">
                             <p>TOTAL DEL PEDIDO</p>
-                            <p><?= CalculadoraPrecios::calculadoraPrecioFinal($_SESSION['carrito']) ?> €</p>
+                            <p id="precioFinal"><?= CalculadoraPrecios::calculadoraPrecioFinal($_SESSION['carrito']) ?> €</p>
                         </div>
                         <div class="IVA d-flex justify-content-between">
                             <p>IVA (incluido en el precio total)</p>
@@ -130,7 +136,10 @@
                             </div>
                         </div>
                         <div class="IVA d-flex justify-content-between">
-                            <p>Cuantos puntos quieres usar?</p>
+                            <div class="d-flex flex-column">
+                                <p>Cuantos puntos quieres usar?</p>
+                                <p>(1000 puntos = 1€)</p>                
+                            </div>
                             <div>
                                 <input id="puntos" type="range" value="0">
                                 <p id="puntosUtilizados" style="font-weight: normal; font-style: italic; text-align: right;"><?php if($user->getPuntos() == 0){ echo"No tienes puntos"; }else{ echo "Puntos utilizados: 0"; } ?></p>
@@ -145,6 +154,7 @@
                 <!-- <button class="w-100 py-2 px-4 buttonEstilo2" onclick="añadirPuntos(<?= $id_cliente ?> ,<?= CalculadoraPrecios::calculadoraPrecioFinal($_SESSION['carrito']) ?>)">Prueba</button> -->
 
                 <form action="<?= URL . "?controller=producto&action=createPedido" ?>" method="post" class="mt-4">
+                    <input id="descuentoFinal" type="hidden" name="descuentoFinal" value="0">
                     <button class="w-100 py-2 px-4 buttonEstilo2" type="submit" onclick="añadirPuntos(<?= $id_cliente ?> ,<?= CalculadoraPrecios::calculadoraPrecioFinal($_SESSION['carrito']) ?>)">CONTINUAR CON EL PEDIDO</button>
                 </form>
             </div>

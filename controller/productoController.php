@@ -424,6 +424,16 @@ class productoController{
         $id_cliente = $_SESSION['usuario'][0]->getId();
         $precioTotal = CalculadoraPrecios::calculadoraPrecioFinal($_SESSION['carrito']);
 
+        
+        if($_POST['descuentoFinal'] > 0){
+
+            var_dump($_POST['descuentoFinal']);
+
+            $descuentoFinal = $_POST['descuentoFinal'];
+            
+            $precioTotal = $precioTotal - $descuentoFinal;
+
+        }
 
         $pedidoID = PedidosDAO::addPedido($id_cliente, $precioTotal);
         
