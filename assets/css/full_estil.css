@@ -590,6 +590,15 @@ div.tablaReseña{
     text-align: justify;
 }
 
+/*Propinas*/
+.propina-seccion {
+    display: none !important; /* Oculta la sección por defecto */
+  }
+
+  .propina-seccion.mostrar {
+    display: flex !important; /* Muestra la sección si tiene la clase "mostrar" */
+  }
+
 
 
 /*Botones*/
@@ -672,13 +681,24 @@ div.tablaReseña{
     text-align: center;
     background-color: #2C2C2C;
     color: white;
-    border-style: none;
     font-family: Raleway;
     font-size: 14px;
     font-weight: bold;
 }
 
+.buttonPropina:hover{
+    background-color: #2C2C2C;
+    color: white;
+    border-style: solid;
+    border-color: #2C2C2C;
+}
 
+.propinaSeleccionada{   
+    background-color: #2C2C2C;
+    color: white;
+    border-style: solid;
+    border-color: #2C2C2C;
+}
 
 
 /* Media Querys */

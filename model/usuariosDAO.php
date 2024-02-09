@@ -66,21 +66,6 @@
             return $result;
 
         }
-
-        public static function modifyPointsPedido($puntos,$id){
-            $con = DataBase::connect();
-
-            $stmt = $con->prepare("UPDATE pedidos SET puntos = ? WHERE id = ?");
-            $stmt->bind_param("ii",$puntos,$id);
-
-            $stmt->execute();
-            $result=$stmt->get_result();
-
-            $con->close();
-
-            return $result;
-
-        }
         
     }
 

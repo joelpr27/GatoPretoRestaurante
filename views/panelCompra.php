@@ -2,12 +2,12 @@
 
 <?php include_once 'utils/calculadoraPrecios.php' ?>
 
-<section class="px-4">
+<section class="px-4 mb-0">
     <h2>Carrito de compras</h2>
     <?php
     if (count($_SESSION['carrito']) != 0) {
     ?>
-        <div class="row m-0 d-flex">
+        <div class="row m-0 p-4 d-flex">
             <div class="col-8 p-0 d-flex flex-column px-3">
                 <div class="w-100 d-flex justify-content-between py-2">
                     <div class="row tablaCarrito w-100 d-flex">
@@ -93,7 +93,7 @@
                 </a>
 
             </div>
-            <div class="resumenPedido col-4 ps-2" style="max-height: 481px;">
+            <div class="resumenPedido col-4 ps-2" >
                 <div style="background-color: #F6F6F6;">
                     <div class="resumenPedidoTitulo mx-3 py-3 d-flex justify-content-center">
                         <h8 class="m-0 p-0">RESUMEN PEDIDO</h8>
@@ -113,6 +113,10 @@
                             <p>ENVIO</p>
                             <p style="font-weight: normal; font-style: italic;">AÚN NO SE HA CALCULADO </p>
                         </div>
+                        <div id="propina" class="pb-2 d-flex justify-content-between">
+                            <p>PROPINA</p>
+                            <p style="font-weight: normal; font-style: italic;">0.30€</p>
+                        </div>
                         <div class="pb-2 d-flex justify-content-between">
                             <p>Con este pedido ganaras</p>
                             <p id="puntosGanados" style="font-weight: normal; font-style: italic;"></p>
@@ -124,6 +128,30 @@
                         <div class="IVA d-flex justify-content-between">
                             <p>IVA (incluido en el precio total)</p>
                             <p style="font-weight: normal;"><?= CalculadoraPrecios::calculadoraPrecioIVA($_SESSION['carrito']) ?> €</p>
+                        </div>
+                    </div>
+
+                    <div class="px-4 d-flex flex-column justify-content-between">
+                        <div class="d-flex justify-content-between">
+                            <p>PROPINAS</p>
+                            <div class="d-flex">
+                                <input type="checkbox" id="mostrarPropinasCheckbox" onchange="togglePropinaSeccion()" checked> 
+                            </div>
+                        </div>
+                        <div class="mt-2 IVA d-flex justify-content-between propina-seccion">
+                            <input id="precioTotal" hidden value="<?= CalculadoraPrecios::calculadoraPrecioFinal($_SESSION['carrito']) ?>">
+                            <button type="button" class="buttonPropina propinaSeleccionada" onclick="seleccionarPropina(this, 3)">3%</button>
+                            <button type="button" class="buttonPropina" onclick="seleccionarPropina(this, 5)">5%</button>
+                            <button type="button" class="buttonPropina" onclick="seleccionarPropina(this, 10)">10%</button>
+                            <button type="button" class="buttonPropina" onclick="seleccionarPropina(this, 15)">15%</button>
+                            <button type="button" class="buttonPropina" onclick="seleccionarPropina(this, 25)">25%</button>
+                            <button type="button" class="buttonPropina" onclick="seleccionarPropina(this, 50)">50%</button>
+
+                            <div class="d-flex align-items-center">
+                                <p id="propinaActual" class="justify-content-center align-content-center" style="font-weight: normal; font-style: italic;"></p>
+                                <p id="propinaActual" class="justify-content-center align-content-center" style="font-weight: normal; font-style: italic;">€</p>     
+     
+                            </div>
                         </div>
                     </div>
 
@@ -144,14 +172,12 @@
                                 <input id="puntos" type="range" value="0">
                                 <p id="puntosUtilizados" style="font-weight: normal; font-style: italic; text-align: right;"><?php if($user->getPuntos() == 0){ echo"No tienes puntos"; }else{ echo "Puntos utilizados: 0"; } ?></p>
                             </div>
-                            
                         </div>
                     </div>
 
 
 
                 </div>
-                <!-- <button class="w-100 py-2 px-4 buttonEstilo2" onclick="añadirPuntos(<?= $id_cliente ?> ,<?= CalculadoraPrecios::calculadoraPrecioFinal($_SESSION['carrito']) ?>)">Prueba</button> -->
 
                 <form action="<?= URL . "?controller=producto&action=createPedido" ?>" method="post" class="mt-4">
                     <input id="descuentoFinal" type="hidden" name="descuentoFinal" value="0">

@@ -59,11 +59,12 @@ class APIController
         
         $inputJSON = file_get_contents('php://input');
         $data = json_decode($inputJSON, TRUE);
-        
+
         if(isset($data['id_cliente']) && isset($data['puntos'])) {
 
             $id_cliente = $data['id_cliente'];
             $puntos = $data['puntos'];
+            $propina = $data['propina'];
             
             $puntosCliente = UsuariosDAO::getPoints($id_cliente);
 
@@ -79,15 +80,15 @@ class APIController
             $ultimoPedido = PedidosDAO::getUltimoPedido($id_cliente);
             $id_ultimoPedido = $ultimoPedido->getId();
 
-            $addPuntosPedido = UsuariosDAO::modifyPointsPedido($puntos, $id_ultimoPedido);
+            $addPuntosPedido = PedidosDAO::modifyPointsPedido($puntos,$propina, $id_ultimoPedido);
 
-            $response2 = array('success' => true, 'message' => $puntos.' puntos agregados correctamente al pedido');
+            $response2 = array('success' => true, 'message' => $puntos.' puntos agregados correctamente al pedido','Propina' => $propina);
 
             echo json_encode($response2);
 
         } else {
 
-            $response = array('success' => false, 'message' => 'Error al añadir los puntos');
+            $response = array('success' => false, 'message' => 'Error al añadir los puntos', 'data' => $data);
             echo json_encode($response);
         
         }
