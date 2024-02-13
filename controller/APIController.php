@@ -8,22 +8,10 @@ include_once 'model/resenas.php';
 class APIController
 {
 
-    public function api()
-    {
+    public function api(){
         if ($_POST['accion'] == 'consultaResenas') {
 
             $resenas = ResenasDAO::getAllReseñas();
-
-            // Obtén el parámetro de orden deseado (valoracion o nombre_cliente)
-            $orden = isset($_POST['orden']) ? $_POST['orden'] : 'valoracion';
-
-            // Función de comparación para la ordenación
-            $comparar = function ($a, $b) use ($orden) {
-                return $a[$orden] - $b[$orden];
-            };
-
-            // Aplica la ordenación
-            usort($resenas, $comparar);
 
             $arrayAsc = [];
             foreach ($resenas as $resena) {

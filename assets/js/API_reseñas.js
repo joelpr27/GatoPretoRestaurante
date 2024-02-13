@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => {
             console.error(error);
         });
+
+
+        
 });
 
 
@@ -144,3 +147,94 @@ function mostrarResenas(resenas) {
 
     });
 }
+
+let ordenAscendenteNom = true;
+let ordenAscendenteNum = true;
+
+
+    // Función para ordenar las reseñas
+    function ordenarResenas(criterio) {
+        const contenedor = document.getElementById('reseñas-container');
+        const reseñas = contenedor.children;
+
+        // Convierte las reseñas a un array para facilitar la manipulación
+        const arrayReseñas = Array.from(reseñas);
+
+        // Invierte el orden si el mismo criterio es clicado nuevamente
+        if(criterio == 'nombreUsu'){
+            if (ordenAscendenteNom) {
+                arrayReseñas.sort((a, b) => compararResenas(a, b, criterio));
+            } else {
+                arrayReseñas.sort((a, b) => compararResenas(b, a, criterio));
+            }
+        }else{
+            if (ordenAscendenteNum) {
+                arrayReseñas.sort((a, b) => compararResenas(b, a, criterio));
+            } else {
+                arrayReseñas.sort((a, b) => compararResenas(a, b, criterio));
+            }   
+        }
+
+
+        // Limpia el contenedor actual
+        contenedor.innerHTML = '';
+
+        // Agrega las reseñas ordenadas al contenedor
+        arrayReseñas.forEach(resena => {
+            contenedor.appendChild(resena);
+        });
+
+        // Invierte el estado del orden para la próxima vez
+        if(criterio == 'nombreUsu'){
+            ordenAscendenteNom = !ordenAscendenteNom;
+            actualizarImagenFlecha('nombreUsu');
+        }else{
+            ordenAscendenteNum = !ordenAscendenteNum;
+            actualizarImagenFlecha('valoracion');
+
+        }
+    }
+
+    // Función para comparar dos reseñas según el criterio
+    function compararResenas(resenaA, resenaB, criterio) {
+        const valorA = obtenerValor(resenaA, criterio);
+        const valorB = obtenerValor(resenaB, criterio);
+
+        // Compara los valores y ordena
+        if (valorA < valorB) {
+            return -1;
+        } else if (valorA > valorB) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    function obtenerValor(resena, criterio) {
+        switch (criterio) {
+            case 'nombreUsu':
+                return resena.querySelector('.col-2 p').textContent.toLowerCase();
+
+            case 'valoracion':
+                const valoracion = resena.querySelector('.col-2 img[src*="star-full"]');
+                return valoracion ? obtenerNumeroEstrellas(valoracion) : 0;
+
+            default:
+                return 0;
+        }
+    }
+
+    // Función para obtener el número de estrellas llenas
+    function obtenerNumeroEstrellas(valoracionImage) {
+        const estrellasLlenas = Array.from(valoracionImage.parentNode.querySelectorAll('img[src*="star-full"]'));
+        return estrellasLlenas.length;
+    }
+
+    function actualizarImagenFlecha(criterio) {
+        const flechaElement = document.querySelector(`.col-2[onclick="ordenarResenas('${criterio}')"] img`);
+        if (criterio == 'nombreUsu') {
+            flechaElement.src = ordenAscendenteNom ? 'desing/img/iconos/sortUP.svg' : 'desing/img/iconos/sortDOWN.svg';
+        } else {
+            flechaElement.src = ordenAscendenteNum ? 'desing/img/iconos/sortUP.svg' : 'desing/img/iconos/sortDOWN.svg';
+        }
+    }

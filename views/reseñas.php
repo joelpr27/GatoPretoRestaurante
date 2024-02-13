@@ -20,13 +20,16 @@
             <div class="col-8 p-0 d-flex flex-column">
                 <div class="w-100 d-flex justify-content-between py-2">
                     <div class="row tablaCarrito w-100 d-flex justify-content-around">
-                        <div class="col-2 d-flex flex-column align-items-center p-0">
-                            <p class="p-0 m-0">Nombre</p>
+                        <div class="col-2 d-flex justify-content-center  align-items-center p-0" onclick="ordenarResenas('nombreUsu')" style="cursor: pointer;">
+                            <p class="p-0 me-2">Nombre</p>
+                            <img src="desing/img/iconos/sortUP.svg" style="height: 20px;">
                         </div>
-                        <div class="col-2 d-flex flex-column align-items-center p-0">
-                            <p class="p-0 m-0">Valoracion</p>
+                        <div class="col-2 d-flex justify-content-center  align-items-center p-0" onclick="ordenarResenas('valoracion')" style="cursor: pointer;">
+                            <p class="p-0 me-2">Valoracion</p>
+                            <img src="desing/img/iconos/sortUP.svg" style="height: 20px;">
+
                         </div>
-                        <div class="col-8 d-flex flex-column align-items-center p-0">
+                        <div class="col-8 d-flex justify-content-center  align-items-center p-0">
                             <p class="p-0 m-0">Reseña</p>
                         </div>
                     </div>
