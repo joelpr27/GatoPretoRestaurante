@@ -68,6 +68,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let soloNumeroPuntos = puntosGanadosValor.match(/[\d.]+/);
     let puntosGanados = document.getElementById('puntosGanados');
+    let puntosGanadosForm = document.getElementById('puntosGanadosForm');
+
 
     let maxInput = (parseFloat(soloNumeroPuntos) * 1000);
     let puntosActualesNumber = parseInt(puntosActuales, 10)
@@ -75,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // console.log(puntosActualesNumber);
 
     puntosGanados.textContent = soloNumeroPuntos * 100 + " Puntos";
+    puntosGanadosForm.value = parseInt(soloNumeroPuntos * 100, 10);
     puntosActuales.textContent += ' Puntos';
 
     if (puntosActuales.length == 0) {

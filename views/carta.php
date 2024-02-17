@@ -24,12 +24,10 @@ include_once "header.php";
     <section class="d-flex flex-column justify-content-center align-items-center pb-3">
         <h3 class="caruselXL">ARTÍCULOS DE INTERÉS</h3>
 
-        <!-- Carrusel con formato para la pantalla xl o formato escritorio -->
         <div class="caruselXL">
             <div class="row w-100 mx-0 px-3 d-flex justify-content-center">
                 <div class="container mt-5">
                     <div id="myCarouselXL" class="carousel slide">
-                        <!-- Mostramos todos los productos de interes desde la base de datos -->
                         <?php $totalProductos = count($productos); ?>
                         <?php $numProductos = ceil($totalProductos / 10); ?>
                         <div class="card-deck px-2 d-flex flex-wrap">

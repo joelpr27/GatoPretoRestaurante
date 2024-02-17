@@ -180,6 +180,7 @@
                 </div>
 
                 <form action="<?= URL . "?controller=producto&action=createPedido" ?>" method="post" class="mt-4">
+                    <input id="puntosGanadosForm" type="hidden" name="puntosGanados" value="0">
                     <input id="descuentoFinal" type="hidden" name="descuentoFinal" value="0">
                     <button class="w-100 py-2 px-4 buttonEstilo2" type="submit" onclick="añadirPuntos(<?= $id_cliente ?> ,<?= CalculadoraPrecios::calculadoraPrecioFinal($_SESSION['carrito']) ?>)">CONTINUAR CON EL PEDIDO</button>
                 </form>

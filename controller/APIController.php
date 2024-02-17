@@ -77,14 +77,14 @@ class APIController
             
             echo json_encode($response);
 
-            $ultimoPedido = PedidosDAO::getUltimoPedido($id_cliente);
-            $id_ultimoPedido = $ultimoPedido->getId();
+            // $ultimoPedido = PedidosDAO::getUltimoPedido($id_cliente);
+            // $id_ultimoPedido = $ultimoPedido->getId();
 
-            $addPuntosPedido = PedidosDAO::modifyPointsPedido($puntos,$propina, $id_ultimoPedido);
+            // $addPuntosPedido = PedidosDAO::modifyPointsPedido($puntos,$propina, $id_ultimoPedido);
 
-            $response2 = array('success' => true, 'message' => $puntos.' puntos agregados correctamente al pedido','Propina' => $propina);
+            // $response2 = array('success' => true, 'message' => $puntos.' puntos agregados correctamente al pedido','Propina' => $propina);
 
-            echo json_encode($response2);
+            // echo json_encode($response2);
 
         } else {
 

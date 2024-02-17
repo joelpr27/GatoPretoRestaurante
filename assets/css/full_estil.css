@@ -700,6 +700,14 @@ div.tablaReseña{
     border-color: #2C2C2C;
 }
 
+/*Filtro*/
+
+.filtroNoSelected{
+    display: none !important;
+}
+
+
+
 
 /* Media Querys */
 @media screen and (max-width: 1200px) {

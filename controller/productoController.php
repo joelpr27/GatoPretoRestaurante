@@ -7,106 +7,105 @@ include_once 'model/favorito.php';
 include_once 'model/clientes.php';
 
 
-class productoController{
+class productoController
+{
 
-    public function index(){
-         
-        
+    public function index()
+    {
+
+
         session_start();
 
 
-            if(!isset($_SESSION['carrito'])){
-                $_SESSION['carrito'] = array();
-    
-            }else{
-                if(isset($_POST['id'])){
-    
-                    $pedido = new Pedido(ProductoDAO::getProductById($_POST['id']));
-    
-                    
-                    array_push($_SESSION['carrito'], $pedido);
-                }
+        if (!isset($_SESSION['carrito'])) {
+            $_SESSION['carrito'] = array();
+        } else {
+            if (isset($_POST['id'])) {
+
+                $pedido = new Pedido(ProductoDAO::getProductById($_POST['id']));
+
+
+                array_push($_SESSION['carrito'], $pedido);
             }
-    
-            
-            if(!isset($_SESSION['favorito'])){
-                $_SESSION['favorito'] = array();
-    
-            }else{
-                if(isset($_POST['id'])){
-    
-                    $favorito = new Pedido(ProductoDAO::getProductById($_POST['id']));
-    
-                    array_push($_SESSION['favorito'], $favorito);
-                }
+        }
+
+
+        if (!isset($_SESSION['favorito'])) {
+            $_SESSION['favorito'] = array();
+        } else {
+            if (isset($_POST['id'])) {
+
+                $favorito = new Pedido(ProductoDAO::getProductById($_POST['id']));
+
+                array_push($_SESSION['favorito'], $favorito);
             }
-                          
+        }
+
 
         $productos = ProductoDAO::getProductWhitCategory();
 
         $categorias = ProductoDAO::getAllCategory();
 
         include_once 'views/home.php';
+    }
 
-    }   
-
-    public function compra(){
+    public function compra()
+    {
         session_start();
 
         $id_cliente = $_SESSION['usuario'][0]->getId();
 
         $user = UsuariosDAO::getUserById($id_cliente);
 
-        if(isset($_POST['Add'])){
+        if (isset($_POST['Add'])) {
             $pedido = $_SESSION['carrito'][$_POST['Add']];
-            $pedido->setCantidad($pedido->getCantidad()+1);
-        }else if(isset($_POST['Del'])){
+            $pedido->setCantidad($pedido->getCantidad() + 1);
+        } else if (isset($_POST['Del'])) {
             $pedido = $_SESSION['carrito'][$_POST['Del']];
-            if($pedido->getCantidad()==1){
+            if ($pedido->getCantidad() == 1) {
                 unset($_SESSION['carrito'][$_POST['Del']]);
                 $_SESSION['carrito'] = array_values(($_SESSION['carrito']));
-            }else{
-                $pedido->setCantidad($pedido->getCantidad()-1);
+            } else {
+                $pedido->setCantidad($pedido->getCantidad() - 1);
             }
-        }        
+        }
         include_once 'views/header.php';
         include_once 'views/panelCompra.php';
         include_once 'views/footer.php';
-
-   
     }
 
-    public function favorito(){
+    public function favorito()
+    {
         session_start();
-        
+
         include_once 'views/header.php';
         include_once 'views/panelFavorito.php';
         include_once 'views/footer.php';
-   
     }
 
-    public function addProduct(){
+    public function addProduct()
+    {
         session_start();
 
         include_once 'views/header.php';
         include_once "views/addProduct.php";
         include_once 'views/footer.php';
-
     }
 
-    public function seeProducts(){
+    public function seeProducts()
+    {
         session_start();
-     
+
         $productos = ProductoDAO::getAllProducts();
 
         include_once 'views/header.php';
         include_once "views/allProducts.php";
         include_once 'views/footer.php';
-
     }
 
-    
-    public function add(){
+
+    public function add()
+    {
 
         $nombre = $_POST['nombre'];
         $id_categoria = $_POST['id_categoria'];
@@ -116,25 +115,27 @@ class productoController{
         $img = $_POST['img'];
 
 
-        $producto = ProductoDAO::addProduct($nombre,$id_categoria,$tiempo_preparacion,$precio,$descuento,$img);
+        $producto = ProductoDAO::addProduct($nombre, $id_categoria, $tiempo_preparacion, $precio, $descuento, $img);
 
-        header("Location:".URL."?controller=producto&action=seeProducts");
+        header("Location:" . URL . "?controller=producto&action=seeProducts");
     }
 
-    public function delete(){
+    public function delete()
+    {
         $id = $_POST['id'];
 
         ProductoDAO::deleteProduct($id);
 
-        header("Location:".URL."?controller=producto&action=seeProducts");
+        header("Location:" . URL . "?controller=producto&action=seeProducts");
     }
 
-    public function updateProduct(){
+    public function updateProduct()
+    {
 
         session_start();
 
         $id = $_POST['id'];
-     
+
         $producto = ProductoDAO::getProductById($id);
 
         include_once 'views/header.php';
@@ -142,7 +143,8 @@ class productoController{
         include_once 'views/footer.php';
     }
 
-    public function update(){
+    public function update()
+    {
 
         $id = $_POST['id'];
         $nombre = $_POST['nombre'];
@@ -152,35 +154,36 @@ class productoController{
         $img = $_POST['img'];
         $descuento = $_POST['descuento'];
 
-        
 
-    
-        $producto = ProductoDAO::updateProduct($id,$nombre,$id_categoria,$tiempo_preparacion,$precio,$img,$descuento);
 
-        header("Location:".URL . "?controller=producto&action=seeProducts");
+
+        $producto = ProductoDAO::updateProduct($id, $nombre, $id_categoria, $tiempo_preparacion, $precio, $img, $descuento);
+
+        header("Location:" . URL . "?controller=producto&action=seeProducts");
     }
-    
 
-    public function select(){
+
+    public function select()
+    {
 
         $id = $_POST['id'];
 
-        $pedido = new Pedido( ProductoDAO::getProductById($id));
+        $pedido = new Pedido(ProductoDAO::getProductById($id));
 
-        header("Location:".URL."?controller=producto");
+        header("Location:" . URL . "?controller=producto");
     }
 
-    public function addCart(){
+    public function addCart()
+    {
 
         session_start();
 
-        if(isset($_SESSION['usuario'])){
+        if (isset($_SESSION['usuario'])) {
 
-            if(!isset($_SESSION['carrito'])){
+            if (!isset($_SESSION['carrito'])) {
                 $_SESSION['carrito'] = array();
-
-            }else{
-                if (isset($_POST['id'])) {              
+            } else {
+                if (isset($_POST['id'])) {
                     $producto_id = $_POST['id'];
                     $pedidoExistente = false;
 
@@ -199,79 +202,73 @@ class productoController{
                 }
             }
 
-            header("Location:".URL."?controller=producto&action=carta");
+            header("Location:" . URL . "?controller=producto&action=cartaJS");
+        } else {
 
-            
-        }else{
-            
-            header("Location:".URL . "?controller=producto&action=sessionStart");
-
+            header("Location:" . URL . "?controller=producto&action=sessionStart");
         }
-
     }
 
-    public function deleteCart(){
+    public function deleteCart()
+    {
         session_start();
 
-        if(isset($_POST['id'])) {              
-            
+        if (isset($_POST['id'])) {
+
             $pos = $_POST['pos'];
- 
+
             unset($_SESSION['carrito'][$pos]);
 
             $_SESSION['carrito'] = array_values($_SESSION['carrito']);
         }
- 
-        header("Location:".URL . '?controller=producto&action=compra');
 
+        header("Location:" . URL . '?controller=producto&action=compra');
     }
 
-    public function addFavorite(){
+    public function addFavorite()
+    {
 
         session_start();
 
-        if(isset($_SESSION['usuario'])){
+        if (isset($_SESSION['usuario'])) {
 
-            if(!isset($_SESSION['favorito'])){
+            if (!isset($_SESSION['favorito'])) {
                 $_SESSION['favorito'] = array();
-
-            }else{
-                if(isset($_POST['id'])){
+            } else {
+                if (isset($_POST['id'])) {
                     $pedido = new Favorito(ProductoDAO::getProductById($_POST['id']));
 
                     array_push($_SESSION['favorito'], $pedido);
                 }
             }
 
-            header("Location:".URL."?controller=producto");
+            header("Location:" . URL . "?controller=producto");
+        } else {
 
-        }else{
-
-            header("Location:".URL . "?controller=producto&action=sessionStart");
-
+            header("Location:" . URL . "?controller=producto&action=sessionStart");
         }
-
     }
 
-    public function deleteFavorite(){
+    public function deleteFavorite()
+    {
         session_start();
 
-        if(isset($_POST['id'])) {              
-                
+        if (isset($_POST['id'])) {
+
             $pos = $_POST['pos'];
-            
+
             unset($_SESSION['favorito'][$pos]);
 
             $_SESSION['favorito'] = array_values($_SESSION['favorito']);
-        
         }
 
-        header("Location:".URL . '?controller=producto&action=favorito');
+        header("Location:" . URL . '?controller=producto&action=favorito');
     }
 
-    public function carta(){
+    public function carta()
+    {
         session_start();
-        
+
         $productos = ProductoDAO::getProductWhitCategory();
         $categorias = ProductoDAO::getAllCategory();
         $bebidas = ProductoDAO::getBebidas();
@@ -279,13 +276,25 @@ class productoController{
         include_once 'views/header.php';
         include_once 'views/carta.php';
         include_once 'views/footer.php';
-
-   
     }
 
-    public function goCategory(){
+    public function cartaJS()
+    {
         session_start();
-        
+
+        $productos = ProductoDAO::getProductWhitCategory();
+        $categorias = ProductoDAO::getAllCategory();
+        $bebidas = ProductoDAO::getBebidas();
+
+        include_once 'views/header.php';
+        include_once 'views/cartaJS.php';
+        include_once 'views/footer.php';
+    }
+
+    public function goCategory()
+    {
+        session_start();
+
         $categoria_id = $_POST['categoria'];
 
         $productos = ProductoDAO::getProductByCategory($categoria_id);
@@ -293,47 +302,44 @@ class productoController{
         include_once 'views/header.php';
         include_once 'views/productByCategory.php';
         include_once 'views/footer.php';
-
-   
     }
 
 
 
-    public function sessionStart(){
+    public function sessionStart()
+    {
         session_start();
-        
+
         include_once 'views/header.php';
         include_once 'views/logIn.php';
         include_once 'views/footer.php';
-
     }
 
-    public function logIn(){
+    public function logIn()
+    {
 
         $mail = $_POST['mail'];
         $password = $_POST['password'];
 
-        $users = ProductoDAO::logIn($mail,$password);
+        $users = ProductoDAO::logIn($mail, $password);
 
-        if($users != null){
-            
+        if ($users != null) {
+
             session_start();
 
             $_SESSION['usuario'] = array();
-            
+
             array_push($_SESSION['usuario'], $users);
 
-            header("Location:".URL."?controller=producto");
+            header("Location:" . URL . "?controller=producto");
+        } else {
 
-        }else{
-
-            header("Location:".URL . "?controller=producto&action=sessionStart");
- 
+            header("Location:" . URL . "?controller=producto&action=sessionStart");
         }
-   
     }
 
-    public function register(){
+    public function register()
+    {
 
         $name = $_POST['name'];
         $surname = $_POST['surname'];
@@ -345,49 +351,47 @@ class productoController{
 
         if ($users->num_rows == 0) {
 
-            $user = ProductoDAO::register($name,$surname,$mail,$password);
+            $user = ProductoDAO::register($name, $surname, $mail, $password);
 
-            header("Location:".URL."?controller=producto");
+            header("Location:" . URL . "?controller=producto");
+        } else {
 
-        }else{
-
-            header("Location:".URL . "?controller=producto&action=sessionStart");
- 
+            header("Location:" . URL . "?controller=producto&action=sessionStart");
         }
-
     }
 
-    public function userPage(){
+    public function userPage()
+    {
         session_start();
 
         $id = $_SESSION['usuario'][0]->getId();
-     
+
         $user = UsuariosDAO::getUserById($id);
 
         $pedidos = PedidosDAO::getPedidos($id);
 
-        if(isset($_COOKIE['ultimoPedido'])){
+        if (isset($_COOKIE['ultimoPedido'])) {
             $ultimoPedido = PedidosDAO::getUltimoPedidoCookies($_COOKIE['ultimoPedido']);
         }
-        
+
         include_once 'views/header.php';
         include_once "views/userPage.php";
         include_once 'views/footer.php';
-
     }
 
-    public function cerrarSession(){
+    public function cerrarSession()
+    {
         session_start();
 
         unset($_SESSION['usuario']);
 
         session_destroy();
 
-        header("Location:".URL."?controller=producto");
-
+        header("Location:" . URL . "?controller=producto");
     }
 
-    public function goUpdateUser(){
+    public function goUpdateUser()
+    {
 
         session_start();
 
@@ -401,68 +405,75 @@ class productoController{
     }
 
 
-    public function updateUser(){
+    public function updateUser()
+    {
 
         $id = $_POST['id'];
         $nombre = $_POST['nombre'];
         $apellido = $_POST['apellido'];
         $contraseña = $_POST['contraseña'];
 
-    
-        $cliente = UsuariosDAO::updateUser($id,$nombre,$apellido,$contraseña);
+
+        $cliente = UsuariosDAO::updateUser($id, $nombre, $apellido, $contraseña);
 
 
         // header("Location:".URL . "?controller=producto&action=userPage");
     }
 
-    public function createPedido(){
+    public function createPedido()
+    {
 
         session_start();
-        
+
+        $puntos = $_POST['puntosGanados'];
+
+        $puntos = intval($puntos);
+
         include_once "utils/calculadoraPrecios.php";
 
         $id_cliente = $_SESSION['usuario'][0]->getId();
         $precioTotal = CalculadoraPrecios::calculadoraPrecioFinal($_SESSION['carrito']);
 
-        
-        if($_POST['descuentoFinal'] > 0){
+
+        if ($_POST['descuentoFinal'] > 0) {
 
             var_dump($_POST['descuentoFinal']);
 
             $descuentoFinal = $_POST['descuentoFinal'];
-            
-            $precioTotal = $precioTotal - $descuentoFinal;
 
+            $precioTotal = $precioTotal - $descuentoFinal;
         }
 
-        $pedidoID = PedidosDAO::addPedido($id_cliente, $precioTotal);
-        
+        $pedidoID = PedidosDAO::addPedido($id_cliente, $precioTotal, $puntos);
+
 
         foreach ($_SESSION['carrito'] as $producto) {
-            
+
             $id_producto = $producto->getProducto()->getId();
             $cantidad = $producto->getCantidad();
             $tiempo_P = $producto->getProducto()->getTiempo_preparacion();
             $tiempo_P_Total = $tiempo_P * $cantidad;
 
-            if($producto->getProducto()->getDescuento() != null){
+            if ($producto->getProducto()->getDescuento() != null) {
                 $precio = $producto->getProducto()->getPrecioDescuento();
-            }else{
+            } else {
                 $precio = $producto->getProducto()->getPrecio();
             }
 
-            $pedidoProductos = PedidosDAO::addPedidoProducto($pedidoID,$id_producto,$cantidad,$tiempo_P_Total,$precio);
-            
+            $pedidoProductos = PedidosDAO::addPedidoProducto($pedidoID, $id_producto, $cantidad, $tiempo_P_Total, $precio);
         }
+
+
 
         unset($_SESSION['carrito']);
 
-        setcookie('ultimoPedido', $pedidoID , time()+3600);
+        setcookie('ultimoPedido', $pedidoID, time() + 3600);
 
-        header("Location:".URL . "?controller=producto");
+        header("Location:" . URL . "?controller=producto");
     }
-    
-    public function detallePedido(){
+
+    public function detallePedido()
+    {
         session_start();
 
         $id = $_POST['id'];
@@ -473,7 +484,7 @@ class productoController{
 
         $productos = [];
 
-        foreach($pedidos as $pedido){
+        foreach ($pedidos as $pedido) {
             $producto = ProductoDAO::getProductById($pedido->getId_producto());
             $productos[] = $producto;
         }
@@ -483,19 +494,14 @@ class productoController{
         include_once 'views/footer.php';
     }
 
-    public function reseñas(){
+    public function reseñas()
+    {
         session_start();
-        
+
         $reseñas = PedidosDAO::getAllPedidos();
 
         include_once 'views/header.php';
         include_once 'views/reseñas.php';
         include_once 'views/footer.php';
-    
     }
-
 }
-
-
-
-?>

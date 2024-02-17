@@ -5,11 +5,11 @@
 
     class PedidosDAO{
 
-        public static function addPedido($id_cliente,$precioTotal){
+        public static function addPedido($id_cliente,$precioTotal,$puntos){
             $con = DataBase::connect();
 
-            $stmt = $con->prepare("INSERT INTO `pedidos` (`id_cliente`, `precio_total`) VALUES (?, ?)");
-            $stmt->bind_param("id",$id_cliente, $precioTotal );
+            $stmt = $con->prepare("INSERT INTO pedidos (id_cliente, precio_total, puntos) VALUES (?, ?, ?)");
+            $stmt->bind_param("idi",$id_cliente, $precioTotal,$puntos);
 
             $stmt->execute();
             $result=$stmt->get_result();
